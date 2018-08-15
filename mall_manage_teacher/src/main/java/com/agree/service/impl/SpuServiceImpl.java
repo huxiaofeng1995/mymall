@@ -6,7 +6,9 @@ import com.agree.service.SpuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SpuServiceImpl implements SpuService{
@@ -16,7 +18,16 @@ public class SpuServiceImpl implements SpuService{
 
     @Override
     public void sava_spu(List<String> imgs, T_MALL_PRODUCT spu) {
-        spu.setShp_tp(imgs.get(0));
+        //插入spu信息
+        spu.setShp_tp(imgs.get(0));//默认商品显示的主图片/封面
         spuMapper.insert_spu(spu);
+
+        //根据主键，批量插入spu图片
+        Map<String, Object> map = new HashMap<>();
+        map.put("shp_id", spu.getId());
+        map.put("imgs", imgs);
+        //spuMapper.insert_imgs(spu.getId(), imgs);
+        //遇到多参数传递时，最好封装成map，这样方便在mapper.xml中获取
+        spuMapper.insert_imgs(map);
     }
 }

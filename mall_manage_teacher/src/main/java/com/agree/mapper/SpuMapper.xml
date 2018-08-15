@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.agree.mapper.SpuMapper">
+	<!--useGeneratedKeys 主键返回策略，插入后会返回主键  -->
     <insert id="insert_spu" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.agree.bean.T_MALL_PRODUCT">
         insert into t_mall_product
 		(
@@ -21,4 +22,20 @@
 		#{shp_msh}
 		)
     </insert>
+
+	<insert id="insert_imgs"  parameterType="Map">
+		INSERT INTO T_MALL_PRODUCT_IMAGE
+		(
+		SHP_ID,
+		URL
+		)
+		VALUES
+		<foreach item="img" collection="imgs" separator=",">
+		(
+			#{shp_id},
+			#{img}
+		)
+		</foreach>
+
+	</insert>
 </mapper>
