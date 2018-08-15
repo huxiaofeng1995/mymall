@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -30,11 +31,17 @@ public class SpuController {
     }
 
     @RequestMapping("spu_add")
-    public String spu_add(@RequestParam("files") MultipartFile[] files, T_MALL_PRODUCT spu) {
+    public ModelAndView spu_add(@RequestParam("files") MultipartFile[] files, T_MALL_PRODUCT spu) {
         //上传图片
         List<String> imgs = FileUploadUtil.upload_img(files);
         //保存商品
-        spuService.sava_spu(imgs, spu);
-        return "redirect:/goto_spu_add.do";
+        //spuService.sava_spu(imgs, spu);
+        ModelAndView mv = new ModelAndView("redirect:/goto_spu_add.do");
+       //返回时下面这个参数将封装到请求参数里头
+        //mv.addObject("spu",spu); 直接将spu放入model里并不能进行参数传递
+        mv.addObject("flbh1",spu.getFlbh1());
+        mv.addObject("flbh2",spu.getFlbh2());
+        mv.addObject("pp_id",spu.getPp_id());
+        return mv;
     }
 }
