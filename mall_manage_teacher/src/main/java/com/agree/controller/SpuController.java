@@ -20,11 +20,6 @@ public class SpuController {
     @Autowired
     private SpuService spuService;
 
-    @RequestMapping("goto_spu")
-    public String goto_spu() {
-        return "spu";
-    }
-
     @RequestMapping("goto_spu_add")
     public String goto_spu_add(ModelMap map, T_MALL_PRODUCT spu) {
         map.put("spu", spu);
