@@ -3,39 +3,16 @@
 <mapper namespace="com.agree.mapper.SpuMapper">
 	<!--useGeneratedKeys 主键返回策略，插入后会返回主键  -->
     <insert id="insert_spu" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.agree.bean.T_MALL_PRODUCT">
-        insert into t_mall_product
-		(
-		shp_mch,
-		shp_tp,
-		flbh1,
-		flbh2,
-		pp_id,
-		shp_msh
-		)
+        insert into t_mall_product(shp_mch,shp_tp,flbh1,flbh2,pp_id,shp_msh)
 		values
-		(
-		#{shp_mch},
-		#{shp_tp},
-		#{flbh1},
-		#{flbh2},
-		#{pp_id},
-		#{shp_msh}
-		)
+		(#{shp_mch},#{shp_tp},#{flbh1},#{flbh2},#{pp_id},#{shp_msh})
     </insert>
 
 	<insert id="insert_imgs"  parameterType="Map">
-		INSERT INTO T_MALL_PRODUCT_IMAGE
-		(
-		SHP_ID,
-		URL
-		)
+		INSERT INTO T_MALL_PRODUCT_IMAGE(SHP_ID,URL)
 		VALUES
 		<foreach item="img" collection="imgs" separator=",">
-		(
-			#{shp_id},
-			#{img}
-		)
+		(#{shp_id},#{img})
 		</foreach>
-
 	</insert>
 </mapper>
