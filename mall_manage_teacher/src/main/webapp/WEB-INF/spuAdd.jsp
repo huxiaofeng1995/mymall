@@ -20,7 +20,10 @@
                 var url = window.URL.createObjectURL(blob_img);
                 //替换img
                 $("#img_" + index).attr("src", url);
-                add_image(index);
+                var length = $(":file").length;
+                if((index+1) == length && index < 4){//说明用户点击的是最后一张,并限制图片个数
+                	add_image(index);
+                }
             });
         }else {
             $("#file_" + index).change(function () {
@@ -31,7 +34,10 @@
                     $("#img_" + index).attr("src", this.result);
                 }
                 fr.readAsDataURL(blob_img);
-                add_image(index);
+                var length = $(":file").length;
+                if((index+1) == length){//说明用户点击的是最后一张
+                    add_image(index);
+                }
             });
 		}
     }
@@ -39,7 +45,7 @@
     function add_image(index) {
 		index++;
    	 	var a="<input id='file_" + index +"' type='file' name='files' style='display: none'/>"
-        var b="<img id='img_" + index +"' style='cursor: pointer' src='image/upload_hover.png' width='100px' onclick='cimg("+index+")'/>"
+        var b="<img id='img_" + index +"' style='cursor: pointer;margin-left: 10px' src='image/upload_hover.png' width='100px' height='100px' onclick='cimg("+index+")'/>"
 		$("#dimg").append(a+b);
     }
 </script>
@@ -58,7 +64,7 @@
 		商品图片：<br>
 		<div id = "dimg">
 		<input id="file_0" type="file" name="files" style="display: none"/>
-		<img id="img_0" style="cursor: pointer" src="image/upload_hover.png" width="100px" onclick="cimg(0)"/></div><!-- 这里的div结束标签不能换行，换行会导致append新元素时有空格间距-->
+		<img id="img_0" style="cursor: pointer;margin-left: 10px" src="image/upload_hover.png" width="100px" height='100px' onclick="cimg(0)"/></div><!-- 这里的div结束标签不能换行，换行会导致append新元素时有空格间距-->
 		<input type="submit" value="提交"/>
 	</form>
 </body>
