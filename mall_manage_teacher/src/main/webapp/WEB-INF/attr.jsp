@@ -34,6 +34,10 @@
             });
         },"json");
     }
+    function goto_attr_add() {
+		var flbh2 = $("#attr_class_2_select").val();
+		window.location.href="goto_attr_add.do?flbh2="+flbh2;
+    }
 </script>
 <title>硅谷商城</title>
 </head>
@@ -46,7 +50,7 @@
 
 	</form>
 	查询<br>
-	<a href="goto_attr_add.do">添加</a><br>
+	<a href="javascript:goto_attr_add();">添加</a><br>
 	删除<br>
 	编辑<br>
 </body>
