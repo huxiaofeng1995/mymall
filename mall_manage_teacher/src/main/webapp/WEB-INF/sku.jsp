@@ -37,7 +37,7 @@
 	function goto_sku_add() {
 	    var flbh1 = $("#sku_class_1_select").val();
         var flbh2 = $("#sku_class_2_select").val();
-        window.location.href="goto_attr_add.do?flbh1="+flbh1+"&flbh2="+flbh2;
+        window.location.href="goto_sku_add.do?flbh1="+flbh1+"&flbh2="+flbh2;
     }
 </script>
 <title>硅谷商城</title>

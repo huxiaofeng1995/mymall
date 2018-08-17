@@ -30,4 +30,9 @@ public class SpuServiceImpl implements SpuService{
         //遇到多参数传递时，最好封装成map，这样方便在mapper.xml中获取
         spuMapper.insert_imgs(map);
     }
+
+    @Override
+    public List<T_MALL_PRODUCT> get_spu_list(int pp_id, int flbh2) {
+        return spuMapper.select_spu_list(pp_id, flbh2);
+    }
 }

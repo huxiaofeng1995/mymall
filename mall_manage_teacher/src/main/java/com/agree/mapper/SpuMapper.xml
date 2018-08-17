@@ -15,4 +15,10 @@
 		(#{shp_id},#{img})
 		</foreach>
 	</insert>
+
+	<select id="select_spu_list" resultType="com.agree.bean.T_MALL_PRODUCT">
+		select * from t_mall_product
+		WHERE
+		pp_id=#{pp_id} and flbh2=#{flbh2}
+	</select>
 </mapper>
