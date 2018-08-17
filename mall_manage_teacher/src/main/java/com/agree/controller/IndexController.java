@@ -20,4 +20,9 @@ public class IndexController {
 	public String goto_attr() {
 		return "attr";
 	}
+
+	@RequestMapping("goto_sku")
+	public String goto_sku() {
+		return "sku";
+	}
 }
