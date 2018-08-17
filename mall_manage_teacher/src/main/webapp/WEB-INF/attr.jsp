@@ -38,6 +38,13 @@
 		var flbh2 = $("#attr_class_2_select").val();
 		window.location.href="goto_attr_add.do?flbh2="+flbh2;
     }
+
+    function get_attr_list(class_2_id) {
+		//异步查询
+		$.post("get_attr_list.do",{flbh2:class_2_id},function (data) {
+                $("#attrListInner").html(data);
+        });
+    }
 </script>
 <title>硅谷商城</title>
 </head>
@@ -46,12 +53,14 @@
 	<hr>
 	<form id="spfl" method="get" action="goto_spu_add.do">
 	一级：<select id="attr_class_1_select" name="flbh1" onchange="get_attr_class_2(this.value);"><option>请选择</option></select>
-	二级：<select  id="attr_class_2_select" name="flbh2" ><option>请选择</option></select><br>
+	二级：<select  id="attr_class_2_select" name="flbh2" onchange="get_attr_list(this.value)"><option>请选择</option></select><br>
 
 	</form>
 	查询<br>
 	<a href="javascript:goto_attr_add();">添加</a><br>
 	删除<br>
 	编辑<br>
+	<hr>
+	<div id="attrListInner"></div>
 </body>
 </html>

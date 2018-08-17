@@ -14,4 +14,25 @@
 		(#{item.shxzh},#{item.shxzh_mch},#{shxid})
 		</foreach>
 	</insert>
+
+	<!--嵌套结果集的方式，使用collection标签定义关联的集合类型的属性封装规则  -->
+	<resultMap type="com.agree.bean.OBJECT_T_MALL_ATTR" id="AttrList" autoMapping="true">
+		<!--
+			autoMappings
+			collection定义关联集合类型的属性的封装规则
+			ofType:指定集合里面元素的类型
+		-->
+		<result column="a_id" property="id"/>
+		<collection property="list_value" ofType="com.agree.bean.T_MALL_VALUE" autoMapping="true">
+			<!-- 定义这个集合中元素的封装规则 -->
+			<result column="b_id" property="id"/>
+		</collection>
+	</resultMap>
+
+	<select id="select_attr_list" parameterType="int" resultMap="AttrList">
+		select a.id as a_id, a.* ,b.id as b_id ,b.*
+		from t_mall_attr a left JOIN t_mall_value b
+		on a.id = b.shxm_id
+		where a.flbh2 = #{flbh2}
+	</select>
 </mapper>

@@ -12,4 +12,6 @@ public interface AttrMapper {
     public void insert_attr(@Param("flbh2") int flbh2, @Param("attr")OBJECT_T_MALL_ATTR attr);
 
     public void insert_values(@Param("shxid") int shxid, @Param("list_value")List<T_MALL_VALUE> list);
+
+    public List<OBJECT_T_MALL_ATTR> select_attr_list(int flbh2);
 }

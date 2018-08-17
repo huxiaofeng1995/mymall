@@ -31,4 +31,9 @@ public class AttrServiceImpl implements AttrService {
             attrMapper.insert_values(attr.getId(),values);
         }
     }
+
+    @Override
+    public List<OBJECT_T_MALL_ATTR> get_attr_list(int flbh2) {
+        return attrMapper.select_attr_list(flbh2);
+    }
 }
