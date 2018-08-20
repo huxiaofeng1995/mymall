@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class T_MALL_SKU_ATTR_VALUE {
 	private int id;
-	private int shxm_id;
-	private int shxzh_id;
-	private int shp_id;
-	private String is_sku;
-	private Date chjshj;
+	private int shxm_id;//属性名id
+	private int shxzh_id;//属性值id
+	private int shp_id;//商品id
+	private String is_sku;//是否sku
+	private Date chjshj;//创建时间
 	private int sku_id;
 
 	public int getId() {

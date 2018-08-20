@@ -5,13 +5,13 @@ import java.util.Date;
 public class T_MALL_PRODUCT {
 
 	private int id;
-	private String shp_mch;
-	private String shp_tp;
-	private int flbh1;
-	private int flbh2;
-	private int pp_id;
-	private Date chjshj;
-	private String shp_msh;
+	private String shp_mch;// 商品名称
+	private String shp_tp;// 商品图片
+	private int flbh1;// 分类编号1
+	private int flbh2;// 分类编号2
+	private int pp_id;//品牌id
+	private Date chjshj;//创建时间
+	private String shp_msh;//商品描述
 
 	public int getId() {
 		return id;

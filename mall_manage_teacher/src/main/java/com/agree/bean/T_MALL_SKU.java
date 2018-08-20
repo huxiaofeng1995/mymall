@@ -6,13 +6,13 @@ import java.util.Date;
 public class T_MALL_SKU {
 
 	private int id;
-	private int shp_id;
-	private int kc;
-	private BigDecimal jg;
-	private Date chjshj;
-	private String sku_mch;
-	private String kcdz;
-	private long sku_xl;
+	private int shp_id;//商品id
+	private int kc;//库存
+	private BigDecimal jg;//价格
+	private Date chjshj;//创建时间
+	private String sku_mch;//sku名称
+	private String kcdz;//库存地址
+	private long sku_xl;//sku销量
 
 	public long getSku_xl() {
 		return sku_xl;

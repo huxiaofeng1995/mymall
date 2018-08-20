@@ -1,10 +1,10 @@
 package com.agree.bean;
 
 public class T_MALL_PRODUCT_IMAGE {
-	private int id;
-	private String zy;
-	private int shp_id;
-	private String url;
+	private int id;//编号
+	private String zy;//作用
+	private int shp_id;//商品id
+	private String url;//图片地址
 
 	public int getId() {
 		return id;
