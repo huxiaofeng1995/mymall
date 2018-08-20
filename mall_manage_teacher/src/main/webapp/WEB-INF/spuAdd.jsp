@@ -10,45 +10,6 @@
 <base href="<%=basePath %>">
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript">
-	function cimg(index){
-		$("#file_"+index).click();//触发文件input的点击事件
-        if(window.URL.createObjectURL) {
-            $("#file_" + index).change(function () {
-                //获得图片对象
-                var blob_img = $("#file_" + index)[0].files[0];//Jquery对象转dom对象 $x.[0]
-                var url = window.URL.createObjectURL(blob_img);
-                //替换img
-                $("#img_" + index).attr("src", url);
-                var length = $(":file").length;
-                if((index+1) == length && index < 4){//说明用户点击的是最后一张,并限制图片个数
-                	add_image(index);
-                }
-            });
-        }else {
-            $("#file_" + index).change(function () {
-                //获得图片对象
-                var blob_img = $("#file_" + index)[0].files[0];
-                var fr = new FileReader();
-                fr.onload = function () {
-                    $("#img_" + index).attr("src", this.result);
-                }
-                fr.readAsDataURL(blob_img);
-                var length = $(":file").length;
-                if((index+1) == length){//说明用户点击的是最后一张
-                    add_image(index);
-                }
-            });
-		}
-    }
-
-    function add_image(index) {
-		index++;
-   	 	var a="<input id='file_" + index +"' type='file' name='files' style='display: none'/>"
-        var b="<img id='img_" + index +"' style='cursor: pointer;margin-left: 10px' src='image/upload_hover.png' width='100px' height='100px' onclick='cimg("+index+")'/>"
-		$("#dimg").append(a+b);
-    }
-</script>
 <title>硅谷商城</title>
 </head>
 <body>
@@ -67,5 +28,45 @@
 		<img id="img_0" style="cursor: pointer;margin-left: 10px" src="image/upload_hover.png" width="100px" height='100px' onclick="cimg(0)"/></div><!-- 这里的div结束标签不能换行，换行会导致append新元素时有空格间距-->
 		<input type="submit" value="提交"/>
 	</form>
+	<script type="text/javascript">
+        function cimg(index){
+            $("#file_"+index).click();//触发文件input的点击事件
+            if(window.URL.createObjectURL) {
+                $("#file_" + index).change(function () {
+                    //获得图片对象
+                    var blob_img = $("#file_" + index)[0].files[0];//Jquery对象转dom对象 $x.[0]
+                    var url = window.URL.createObjectURL(blob_img);
+                    //替换img
+                    $("#img_" + index).attr("src", url);
+                    var length = $(":file").length;
+                    if((index+1) == length && index < 4){//说明用户点击的是最后一张,并限制图片个数
+                        add_image(index);
+                    }
+                });
+            }else {
+                $("#file_" + index).change(function () {
+                    //获得图片对象
+                    var blob_img = $("#file_" + index)[0].files[0];
+                    var fr = new FileReader();
+                    fr.onload = function () {
+                        $("#img_" + index).attr("src", this.result);
+                    }
+                    fr.readAsDataURL(blob_img);
+                    var length = $(":file").length;
+                    if((index+1) == length){//说明用户点击的是最后一张
+                        add_image(index);
+                    }
+                });
+            }
+        }
+
+        function add_image(index) {
+            index++;
+            var a="<input id='file_" + index +"' type='file' name='files' style='display: none'/>"
+            var b="<img id='img_" + index +"' style='cursor: pointer;margin-left: 10px' src='image/upload_hover.png' width='100px' height='100px' onclick='cimg("+index+")'/>"
+            $("#dimg").append(a+b);
+        }
+	</script>
+
 </body>
 </html>

@@ -11,6 +11,21 @@
 <base href="<%=basePath %>">
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>硅谷商城</title>
+</head>
+<body>
+添加商品属性
+<hr>
+<form action="attr_add.do" method="post">
+    <input type="hidden" name="flbh2" value="${flbh2}"/>
+    <button type="button" onclick="addAttr()">添加属性</button>
+    <table class="attrTable_0" border="1" width="600px">
+        <tr><td>属性名：<input type="text" name="list_attr[0].shxm_mch"/></td><td></td><td><button class="valBtn" type="button">添加值</button></td></tr>
+        <tr><td>属性值：<input type="text" name="list_attr[0].list_value[0].shxzh"/></td><td>单位：<input type="text" name="list_attr[0].list_value[0].shxzh_mch"/></td><td><button class="valdleBtn" type="button">删除</button></td></tr>
+    </table>
+    <br>
+    <input id="submitBtn" type="submit" value="提交"/>
+</form>
 <script type="text/javascript">
     $(function(){
         //添加属性值按钮事件
@@ -46,20 +61,5 @@
     }
 
 </script>
-<title>硅谷商城</title>
-</head>
-<body>
-添加商品属性
-<hr>
-<form action="attr_add.do" method="post">
-    <input type="hidden" name="flbh2" value="${flbh2}"/>
-    <button type="button" onclick="addAttr()">添加属性</button>
-    <table class="attrTable_0" border="1" width="600px">
-        <tr><td>属性名：<input type="text" name="list_attr[0].shxm_mch"/></td><td></td><td><button class="valBtn" type="button">添加值</button></td></tr>
-        <tr><td>属性值：<input type="text" name="list_attr[0].list_value[0].shxzh"/></td><td>单位：<input type="text" name="list_attr[0].list_value[0].shxzh_mch"/></td><td><button class="valdleBtn" type="button">删除</button></td></tr>
-    </table>
-    <br>
-    <input id="submitBtn" type="submit" value="提交"/>
-</form>
 </body>
 </html>
