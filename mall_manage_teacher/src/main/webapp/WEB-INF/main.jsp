@@ -52,6 +52,15 @@
 		<div id="tab" class="easyui-tabs"  style="height: 500px"></div>
 	</div>
 	<script type="text/javascript">
+
+		$(function () {
+			var url = "${url}";
+			var title = "${title}";
+            if(url != "" && title !="") {
+                add_tab(url, title);
+            }
+        });
+
         function add_tab(url,title) {
             var existFlag = $("#tab").tabs("exists",title);//判断是否存在，不存在就添加，存在就选中
             if(!existFlag){

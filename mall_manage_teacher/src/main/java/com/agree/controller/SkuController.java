@@ -40,9 +40,12 @@ public class SkuController {
     public ModelAndView save_sku(MODEL_T_MALL_SKU_ATTR_VALUE list_attr, T_MALL_SKU sku, T_MALL_PRODUCT spu) {
 
         skuService.save_sku(list_attr.getList_attr(), sku, spu);
-        ModelAndView mv = new ModelAndView("redirect:/goto_sku_add.do");
-        mv.addObject("flbh1",spu.getFlbh1());
-        mv.addObject("flbh2",spu.getFlbh2());
+        //ModelAndView mv = new ModelAndView("redirect:/goto_sku_add.do");
+        //mv.addObject("flbh1",spu.getFlbh1());
+        //mv.addObject("flbh2",spu.getFlbh2());
+        ModelAndView mv = new ModelAndView("redirect:/index.do");
+        mv.addObject("url","goto_sku_add.do?flbh1="+spu.getFlbh1()+"&flbh2="+spu.getFlbh2());
+        mv.addObject("title", "添加库存");
         return mv;
     }
 }

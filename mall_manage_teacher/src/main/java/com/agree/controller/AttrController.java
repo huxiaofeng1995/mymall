@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
@@ -38,16 +39,17 @@ public class AttrController {
     }
 
     @RequestMapping("goto_attr_add")
-    public String goto_spu_add(int flbh2,ModelMap modelMap) {
+    public String goto_attr_add(int flbh2,ModelMap modelMap) {
         modelMap.put("flbh2",flbh2);
         return "attrAdd";
     }
 
     @RequestMapping("attr_add")
-    public RedirectView attr_add(int flbh2, MODEL_T_MALL_ATTR list_attr) {
+    public ModelAndView attr_add(int flbh2, MODEL_T_MALL_ATTR list_attr) {
         attrService.sava_attr(flbh2, list_attr);
-        RedirectView rv = new RedirectView("goto_attr_add.do",true,false,true);
-        rv.addStaticAttribute("flbh2",flbh2);
-        return rv;
+        ModelAndView mv = new ModelAndView("redirect:/index.do");
+        mv.addObject("url","goto_attr_add.do?flbh2="+flbh2);
+        mv.addObject("title", "添加属性");
+        return mv;
     }
 }

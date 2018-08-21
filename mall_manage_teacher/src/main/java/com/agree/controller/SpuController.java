@@ -37,16 +37,18 @@ public class SpuController {
     public ModelAndView spu_add(@RequestParam("files") MultipartFile[] files, T_MALL_PRODUCT spu) {
         //上传图片
         List<String> imgs = FileUploadUtil.upload_img(files);
-
         //保存商品
         spuService.sava_spu(imgs, spu);
-        ModelAndView mv = new ModelAndView("redirect:/goto_spu_add.do");
+        //ModelAndView mv = new ModelAndView("redirect:/goto_spu_add.do");
         //new RedirectView("/goto_spu_add.do").;
         //返回时下面这个参数将封装到请求参数里头
         //mv.addObject("spu",spu); 直接将spu放入model里并不能进行参数传递
-        mv.addObject("flbh1",spu.getFlbh1());
-        mv.addObject("flbh2",spu.getFlbh2());
-        mv.addObject("pp_id",spu.getPp_id());
+        //mv.addObject("flbh1",spu.getFlbh1());
+        //mv.addObject("flbh2",spu.getFlbh2());
+        //mv.addObject("pp_id",spu.getPp_id());
+        ModelAndView mv = new ModelAndView("redirect:/index.do");
+        mv.addObject("url","goto_spu_add.do?flbh1="+spu.getFlbh1()+"&flbh2="+spu.getFlbh2()+"&pp_id="+spu.getPp_id());
+        mv.addObject("title", "添加商品");
         return mv;
     }
 }

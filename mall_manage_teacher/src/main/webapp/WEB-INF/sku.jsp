@@ -13,14 +13,22 @@
 <title>硅谷商城</title>
 </head>
 <body>
-	spu商品信息管理
-	<hr>
-	一级：<select id="sku_class_1_select" name="flbh1" onchange="get_class_2(this.value);"><option>请选择</option></select>
-	二级：<select  id="sku_class_2_select" name="flbh2" ><option>请选择</option></select>
-	查询<br>
-	<a href="javascript:goto_sku_add();">添加</a><br>
-	删除<br>
-	编辑<br>
+	<div class="easyui-layout" data-options="fit:true">
+		<div data-options="region:'north',split:true,border:false" style="height:50px">
+			<div style="margin-top: 10px;margin-left: 10px;">
+				一级：<select id="sku_class_1_select" name="flbh1" onchange="get_class_2(this.value);"><option>请选择</option></select>
+				二级：<select  id="sku_class_2_select" name="flbh2" ><option>请选择</option></select>
+				<a href="javascript:goto_sku_add();">添加</a>
+			</div>
+		</div>
+		<div data-options="region:'west',split:true,border:false" style="width:100px">
+			查询<br>
+			删除<br>
+			编辑<br>
+		</div>
+		<div data-options="region:'center',border:false"></div>
+	</div>
+
 	<script type="text/javascript">
         $(function () {
             /*
@@ -48,7 +56,8 @@
         function goto_sku_add() {
             var flbh1 = $("#sku_class_1_select").val();
             var flbh2 = $("#sku_class_2_select").val();
-            window.location.href="goto_sku_add.do?flbh1="+flbh1+"&flbh2="+flbh2;
+           	var url = "goto_sku_add.do?flbh1="+flbh1+"&flbh2="+flbh2;
+           	add_tab(url, "添加库存");
         }
 	</script>
 </body>
