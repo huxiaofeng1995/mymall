@@ -11,7 +11,7 @@
 	<base href="<%=basePath %>">
 	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="js/easyui/themes/gray/easyui.css">
+	<link rel="stylesheet" type="text/css" href="js/easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
 	<script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -49,7 +49,7 @@
 	<div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region</div>
 	<div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">south region</div>
 	<div data-options="region:'center',title:'Center'">
-		<div id="tab" class="easyui-tabs"></div>
+		<div id="tab" class="easyui-tabs" data-options="fit:true" style="height: 500px"></div>
 	</div>
 	<script type="text/javascript">
         function add_tab(url,title) {

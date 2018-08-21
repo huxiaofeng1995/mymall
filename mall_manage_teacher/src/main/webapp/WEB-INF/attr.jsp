@@ -13,19 +13,26 @@
 <title>硅谷商城</title>
 </head>
 <body>
-	商品属性信息管理
-	<hr>
-	<form id="spfl" method="get" action="goto_spu_add.do">
-	一级：<select id="attr_class_1_select" name="flbh1" onchange="get_attr_class_2(this.value);"><option>请选择</option></select>
-	二级：<select  id="attr_class_2_select" name="flbh2" onchange="get_attr_list_json(this.value)"><option>请选择</option></select><br>
 
-	</form>
-	查询<br>
-	<a href="javascript:goto_attr_add();">添加</a><br>
-	删除<br>
-	编辑<br>
-	<hr>
-	<div id="attrListInner" class="easyui-datagrid"></div>
+	<div class="easyui-layout" data-options="fit:true">
+		<div data-options="region:'north',split:true,border:false" style="height:50px">
+			<form id="spfl" method="get" action="goto_spu_add.do" style="margin-top: 10px;margin-left: 10px;">
+				一级：<select id="attr_class_1_select" name="flbh1" onchange="get_attr_class_2(this.value);"><option>请选择</option></select>
+				二级：<select  id="attr_class_2_select" name="flbh2" onchange="get_attr_list_json(this.value)"><option>请选择</option></select>
+				<a href="javascript:goto_attr_add();">添加</a><br>
+			</form>
+		</div>
+		<div data-options="region:'west',split:true,border:false" style="width:100px">
+			查询<br>
+
+			删除<br>
+			编辑<br>
+		</div>
+		<div data-options="region:'center',border:false">
+			<div id="attrListInner" class="easyui-datagrid"></div>
+
+		</div>
+	</div>
 	<script type="text/javascript">
         $(function () {
             /*
