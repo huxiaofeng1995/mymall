@@ -24,7 +24,6 @@
 		</div>
 		<div data-options="region:'west',split:true,border:false" style="width:100px">
 			查询<br>
-
 			删除<br>
 			编辑<br>
 		</div>
@@ -59,7 +58,8 @@
         }
         function goto_attr_add() {
             var flbh2 = $("#attr_class_2_select").val();
-            window.location.href="goto_attr_add.do?flbh2="+flbh2;
+            var url ="goto_attr_add.do?flbh2="+flbh2;
+            add_tab(url, "添加属性");
         }
 
         function get_attr_list(class_2_id) {

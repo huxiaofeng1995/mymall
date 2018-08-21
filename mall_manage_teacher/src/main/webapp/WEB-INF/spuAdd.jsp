@@ -8,7 +8,7 @@
 <html>
 <head>
 <base href="<%=basePath %>">
-<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<!-- <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>  阻止jquery覆盖的问题-->
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>硅谷商城</title>
 </head>

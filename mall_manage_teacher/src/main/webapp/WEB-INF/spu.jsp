@@ -13,17 +13,24 @@
 <title>硅谷商城</title>
 </head>
 <body>
-	spu商品信息管理
-	<hr>
-	<form id="spfl" method="get" action="goto_spu_add.do">
-	一级：<select id="class_1_select" name="flbh1" onchange="get_class_2(this.value);"><option>请选择</option></select>
-	二级：<select  id="class_2_select" name="flbh2" ><option>请选择</option></select>
-	品牌：<select  id="tm_select" name="pp_id" ><option>请选择</option></select><br>
-	</form>
-	查询<br>
-	<a href="javascript:goto_spu_add();">添加</a><br>
-	删除<br>
-	编辑<br>
+
+	<div class="easyui-layout" data-options="fit:true">
+		<div data-options="region:'north',split:true,border:false" style="height:50px">
+			<form id="spfl" method="get" action="goto_spu_add.do" style="margin-top: 10px;margin-left: 10px;">
+				一级：<select id="class_1_select" name="flbh1" onchange="get_class_2(this.value);"><option>请选择</option></select>
+				二级：<select  id="class_2_select" name="flbh2" ><option>请选择</option></select>
+				品牌：<select  id="tm_select" name="pp_id" ><option>请选择</option></select>
+				<a href="javascript:goto_spu_add();">添加</a>
+			</form>
+		</div>
+		<div data-options="region:'west',split:true,border:false" style="width:100px">
+			查询<br>
+			删除<br>
+			编辑<br>
+		</div>
+		<div data-options="region:'center',border:false"></div>
+	</div>
+
 	<script type="text/javascript">
         $(function () {
             /*
@@ -61,7 +68,8 @@
             },"json");
         }
         function goto_spu_add() {
-            $("#spfl").submit();
+            //使用这种提交form表单数据 post请求的方式，要注意jquery覆盖的问题
+            add_tab_post("goto_spu_add.do","添加商品");
         }
 	</script>
 

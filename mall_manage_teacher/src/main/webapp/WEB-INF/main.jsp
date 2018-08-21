@@ -49,7 +49,7 @@
 	<div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region</div>
 	<div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">south region</div>
 	<div data-options="region:'center',title:'Center'">
-		<div id="tab" class="easyui-tabs" data-options="fit:true" style="height: 500px"></div>
+		<div id="tab" class="easyui-tabs"  style="height: 500px"></div>
 	</div>
 	<script type="text/javascript">
         function add_tab(url,title) {
@@ -70,6 +70,28 @@
                 $('#tab').tabs('select',title);
             }
 		}
+
+        function add_tab_post(url,title){
+            // add a new tab panel
+            var existFlag = $("#tab").tabs("exists",title);//判断是否存在，不存在就添加，存在就选中
+            if(!existFlag) {
+                $.post(url, $("form").serialize(), function (data) {
+                    $('#tab').tabs('add', {
+                        title: title,
+                        content: data,
+                        closable: true,
+                        tools: [{
+                            iconCls: 'icon-mini-refresh',
+                            handler: function () {
+                                alert('refresh');
+                            }
+                        }]
+                    });
+                });
+            }else{
+                $('#tab').tabs('select',title);
+            }
+        }
 	</script>
 </body>
 
