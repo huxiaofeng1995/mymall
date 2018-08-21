@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
@@ -26,6 +27,14 @@ public class AttrController {
         list_attr = attrService.get_attr_list(flbh2);
         map.put("list_attr", list_attr);
         return "attrListInner";
+    }
+
+    @RequestMapping("get_attr_list_json")
+    @ResponseBody
+    public List<OBJECT_T_MALL_ATTR>get_attr_list_json(int flbh2){
+        List<OBJECT_T_MALL_ATTR> list_attr = new ArrayList<OBJECT_T_MALL_ATTR>();
+        list_attr = attrService.get_attr_list(flbh2);
+        return list_attr;
     }
 
     @RequestMapping("goto_attr_add")

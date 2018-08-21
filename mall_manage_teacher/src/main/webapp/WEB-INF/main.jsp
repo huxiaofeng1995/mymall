@@ -15,9 +15,6 @@
 	<link rel="stylesheet" type="text/css" href="js/easyui/themes/icon.css">
 	<script type="text/javascript" src="js/easyui/jquery.easyui.min.js"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<script type="text/javascript">
-        function b() {}
-	</script>
 	<title>硅谷商城</title>
 </head>
 
@@ -30,9 +27,9 @@
 					<li>
 						<span>商品管理</span>
 						<ul>
-							<li><a href="goto_spu.do" target="_blank">商品信息管理</a></li>
-							<li><a href="goto_attr.do" target="_blank">商品属性管理</a></li>
-							<li><a href="goto_sku.do" target="_blank">商品库存单元管理</a></li>
+							<li><a href="javascript:add_tab('goto_spu.do','商品信息管理')">商品信息管理</a></li>
+							<li><a href="javascript:add_tab('goto_attr.do','商品属性管理')">商品属性管理</a></li>
+							<li><a href="javascript:add_tab('goto_sku.do','商品库存单元管理')">商品库存单元管理</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -52,8 +49,28 @@
 	<div data-options="region:'east',split:true,collapsed:true,title:'East'" style="width:100px;padding:10px;">east region</div>
 	<div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">south region</div>
 	<div data-options="region:'center',title:'Center'">
-		内嵌选项卡
+		<div id="tab" class="easyui-tabs"></div>
 	</div>
+	<script type="text/javascript">
+        function add_tab(url,title) {
+            var existFlag = $("#tab").tabs("exists",title);//判断是否存在，不存在就添加，存在就选中
+            if(!existFlag){
+                $("#tab").tabs("add",{
+                    title:title,
+                    href:url,
+                    closable:true,
+                    tools:[{
+                        iconCls:'icon-mini-refresh',
+                        handler:function(){
+                            alert('refresh');
+                        }
+                    }]
+                });
+            }else{
+                $('#tab').tabs('select',title);
+            }
+		}
+	</script>
 </body>
 
 </html>

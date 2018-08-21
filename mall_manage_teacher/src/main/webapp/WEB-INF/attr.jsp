@@ -17,7 +17,7 @@
 	<hr>
 	<form id="spfl" method="get" action="goto_spu_add.do">
 	一级：<select id="attr_class_1_select" name="flbh1" onchange="get_attr_class_2(this.value);"><option>请选择</option></select>
-	二级：<select  id="attr_class_2_select" name="flbh2" onchange="get_attr_list(this.value)"><option>请选择</option></select><br>
+	二级：<select  id="attr_class_2_select" name="flbh2" onchange="get_attr_list_json(this.value)"><option>请选择</option></select><br>
 
 	</form>
 	查询<br>
@@ -25,7 +25,7 @@
 	删除<br>
 	编辑<br>
 	<hr>
-	<div id="attrListInner"></div>
+	<div id="attrListInner" class="easyui-datagrid"></div>
 	<script type="text/javascript">
         $(function () {
             /*
@@ -59,6 +59,32 @@
             //异步查询
             $.post("get_attr_list.do",{flbh2:class_2_id},function (data) {
                 $("#attrListInner").html(data);
+            });
+        }
+
+        function get_attr_list_json(flbh2) {
+            $('#attrListInner').datagrid({
+                url:'get_attr_list_json.do',
+                queryParams:{flbh2:flbh2},
+                columns:[[
+                    {field:'id',title:'id',width:100},
+                    {field:'shxm_mch',title:'属性名',width:150},
+                    {field:'list_value',title:'属性值',width:400,
+							formatter: function(value,row,index){
+								var str ="";
+                        		$(value).each(function(index,item){
+                        		    str = str + item.shxzh + item.shxzh_mch + "";
+								});
+								return str;
+							}
+					},
+                    {field:'chjshj',title:'创建时间',width:200,
+							formatter: function(value,row,index){
+								var d = new Date(value);
+								return d.toLocaleString();
+							}
+					}
+                ]]
             });
         }
 	</script>
