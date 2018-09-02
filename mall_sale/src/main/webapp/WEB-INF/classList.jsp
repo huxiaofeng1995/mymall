@@ -20,9 +20,9 @@
 			});
             $("#class_1_ul>li").hover(
                 function () {
-                    $("#class_2_ul").show(100);
+                    $("#class_2_ul").show();
             	},function () {
-                    $("#class_2_ul").hide(100);
+                    $("#class_2_ul").hide();
             });
 		});
 
