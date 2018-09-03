@@ -164,7 +164,7 @@
 
 	</dependencies>
   <build>
-    <finalName>mall_manage_teacher</finalName>
+    <finalName>mall_sale</finalName>
 	  <resources>
 		  <resource>
 			  <directory>src/main/java</directory>

@@ -21,6 +21,7 @@ public class ListController {
     public String get_list_by_attr(MODEL_T_MALL_SKU_ATTR_VALUE model,int flbh2,Map map){
         List<OBJECT_T_MALL_SKU> list_sku = listService.get_sku_list_by_attr(model.getList_attr(),flbh2);
         map.put("list_sku",list_sku);
+        map.put("count",list_sku.size());
         return "skuList";
     }
 }

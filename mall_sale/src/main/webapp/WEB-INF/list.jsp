@@ -8,6 +8,8 @@
 <html>
 <head>
 <base href="<%=basePath %>">
+    <link rel="stylesheet" type="text/css" href="css/css.css">
+    <link rel="shortcut icon" type="image/icon" href="image/jd.ico">
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
@@ -15,6 +17,11 @@
 <title>硅谷商城</title>
 </head>
 <body>
+    <jsp:include page="header.jsp"></jsp:include>
+    <div class="top_img">
+        <img src="images/top_img.jpg" alt="">
+    </div>
+    <jsp:include page="searchArea.jsp"></jsp:include>
     <jsp:include page="attrList.jsp"/>
     <div id="skuListInner">
         <jsp:include page="skuList.jsp"/>

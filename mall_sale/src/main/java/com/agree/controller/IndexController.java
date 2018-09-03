@@ -38,7 +38,7 @@ public class IndexController {
 
 		List<OBJECT_T_MALL_SKU> list_sku =listService.get_sku_list(flbh2);
 		map.put("list_sku",list_sku);
-
+		map.put("count",list_sku.size());
 		return "list";
 	}
 }

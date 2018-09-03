@@ -50,7 +50,9 @@ public class ListServiceImpl implements ListService {
         subSql.append(" ) ");
         Map<String,Object> map = new HashMap<>();
         map.put("flbh2",flbh2);
-        map.put("subSql",subSql);
+        if(list_attr.size() > 0) {
+            map.put("subSql", subSql);
+        }
         List<OBJECT_T_MALL_SKU> list = listMapper.select_list_sku_by_attr(map);
         return list;
     }
