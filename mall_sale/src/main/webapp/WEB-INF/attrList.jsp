@@ -24,7 +24,7 @@
 
         //页面显示
         $("#attrItem"+shxm_id).hide();
-        $("#attrParam").append("<a href='javascript:(0);' style='border:1px solid black;display: inline-block;height: 25px;' ><input name='shxparam' type='hidden' value='{\"shxm_id\":"+shxm_id+",\"shxzh_id\":"+shxzh_id+"}'><span style='height: 23px;line-height: 23px;'>"+name+"</span><i style='display:inline-block;height: 25px;width: 25px;background: url(/images/search.ele.png) no-repeat 7px -140px;' attrid='"+shxm_id+"'></i></a>");
+        $("#attrParam").append("<a href='javascript:(0);' style='border:1px solid black;display: inline-block;height: 25px;' ><input name='shxparam' type='hidden' value='{\"shxm_id\":"+shxm_id+",\"shxzh_id\":"+shxzh_id+"}'><span style='height: 23px;line-height: 23px;'>"+name+"</span><i style='float:right;display:inline-block;height: 25px;width: 25px;background: url(/images/search.ele.png) no-repeat 7px -140px;' attrid='"+shxm_id+"'></i></a>");
         //异步请求刷新页面
         doajax1();
     }
@@ -41,7 +41,7 @@
         console.log(data);
         //发送ajax请求
         $.get("get_list_by_attr.do",data,function (data) {
-            alert(1)
+            $("#skuListInner").html(data);
         })
     }
     function doajax1(){
@@ -63,7 +63,7 @@
 <div style="margin: 0 auto;width: 1390px;">
     <div id="attrParam"></div>
     <hr>
-    <div style="background: #f1f1f1;"><em style="font-size: 14px;font-weight: bold;font-style: normal;height: 30px;line-height: 30px;">商品筛选</em><span style="font-size: 12px;font-family: Arial;margin-left: 30px;">共${count}件商品</span></div>
+    <div style="background: #f1f1f1;"><em style="font-size: 14px;font-weight: bold;font-style: normal;height: 30px;line-height: 30px;">商品筛选</em><span id="sku_count" style="font-size: 12px;font-family: Arial;margin-left: 30px;">共${count}件商品</span></div>
     <c:forEach items="${list_attr}" var="attr">
         <div id="attrItem${attr.id}" style="height: 35px;line-height: 35px;border-bottom: 1px dotted grey;">
             <div style="width: 110px;display: inline-block;"><span>${attr.shxm_mch}:</span></div>

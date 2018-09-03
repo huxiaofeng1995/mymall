@@ -23,7 +23,7 @@
     </div>
     <jsp:include page="searchArea.jsp"></jsp:include>
     <jsp:include page="attrList.jsp"/>
-    <div id="skuListInner">
+    <div id="skuListInner" style="margin: 0 auto;width: 1390px;">
         <jsp:include page="skuList.jsp"/>
     </div>
 </body>

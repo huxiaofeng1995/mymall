@@ -11,6 +11,9 @@
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
+    $(function () {
+        $("#sku_count").text("共" + ${count} + "件商品");
+    })
 </script>
 <title>硅谷商城</title>
 </head>
