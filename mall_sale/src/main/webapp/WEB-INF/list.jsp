@@ -15,8 +15,9 @@
 <title>硅谷商城</title>
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
     <jsp:include page="attrList.jsp"/>
-    <jsp:include page="skuList.jsp"/>
+    <div id="skuListInner">
+        <jsp:include page="skuList.jsp"/>
+    </div>
 </body>
 </html>

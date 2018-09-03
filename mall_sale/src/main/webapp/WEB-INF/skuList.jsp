@@ -16,8 +16,8 @@
 </head>
 <body>
 <c:forEach items="${list_sku}" var="item">
-<div style="margin-top:10px;margin-left:10px;border: 1px solid red;float:left;width: 200px;height: 200px;">
-    <img src="upload/image/${item.spu.shp_tp}" width="150px" height="150px"><br>
+<div style="margin-top:10px;margin-left:10px;border: 1px solid red;float:left;width: 250px;height: 250px;">
+    <img src="upload/image/${item.spu.shp_tp}" width="180px" height="180px"><br>
     ${item.sku_mch}<br>
     ${item.jg}<br>
     ${item.sku_xl}

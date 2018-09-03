@@ -32,6 +32,7 @@ public class IndexController {
 
 	@RequestMapping(value="/goto_search_class")
 	public String goto_list(int flbh2,Map map){
+		map.put("flbh2",flbh2);
 		List<OBJECT_T_MALL_ATTR> list_attr = attrService.get_attr_list(flbh2);
 		map.put("list_attr",list_attr);
 
