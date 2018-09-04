@@ -26,9 +26,25 @@
 		<div id = "dimg">
 		<input id="file_0" type="file" name="files" style="display: none"/>
 		<img id="img_0" style="cursor: pointer;margin-left: 10px" src="image/upload_hover.png" width="100px" height='100px' onclick="cimg(0)"/></div><!-- 这里的div结束标签不能换行，换行会导致append新元素时有空格间距-->
+		颜色：<div id="colorDiv" style="border: 1px dotted grey;">
+				<input type="text" name="list_color[0].shp_ys"/>
+				<button type="button" onclick="addColor()">添加颜色</button>
+			</div>
+		版本：<div id="versionDiv" style="border: 1px dotted grey;">
+		<input type="text" name="list_version[0].shp_bb"/>
+		<button type="button" onclick="addVersion()">添加版本</button>
+		</div>
 		<input type="submit" value="提交"/>
 	</form>
 	<script type="text/javascript">
+		function addColor() {
+            var count = $("#colorDiv input").length;
+            $("#colorDiv").append("<input type='text' name='list_color["+count+"].shp_ys'/>");
+        }
+        function addVersion() {
+            var count = $("#versionDiv input").length;
+            $("#colorDiv").append("<input type='text' name='list_version["+count+"].shp_bb'/>");
+        }
         function cimg(index){
             $("#file_"+index).click();//触发文件input的点击事件
             if(window.URL.createObjectURL) {
