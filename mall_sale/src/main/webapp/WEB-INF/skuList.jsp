@@ -21,7 +21,7 @@
 <c:forEach items="${list_sku}" var="item">
 <div style="margin-top:10px;margin-left:10px;border: 1px solid red;float:left;width: 250px;height: 250px;">
     <img src="upload/image/${item.spu.shp_tp}" width="180px" height="180px"><br>
-    ${item.sku_mch}<br>
+    <a href="goto_sku_detail.do?sku_id=${item.id}&spu_id=${item.spu.id}">${item.sku_mch}</a><br>
     ${item.jg}<br>
     ${item.sku_xl}
 </div>

@@ -9,7 +9,7 @@
 <head>
 <base href="<%=basePath %>">
     <link rel="stylesheet" type="text/css" href="css/css.css">
-    <link rel="shortcut icon" type="image/icon" href="image/jd.ico">
+    <link rel="shortcut icon" type="image/icon" href="images/jd.ico">
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
