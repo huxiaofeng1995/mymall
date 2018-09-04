@@ -1,9 +1,6 @@
 package com.agree.controller;
 
-import com.agree.bean.MODEL_T_MALL_SKU_ATTR_VALUE;
-import com.agree.bean.OBJECT_T_MALL_ATTR;
-import com.agree.bean.T_MALL_PRODUCT;
-import com.agree.bean.T_MALL_SKU;
+import com.agree.bean.*;
 import com.agree.mapper.AttrMapper;
 import com.agree.service.AttrService;
 import com.agree.service.SkuService;
@@ -37,9 +34,9 @@ public class SkuController {
     }
 
     @RequestMapping("save_sku")
-    public ModelAndView save_sku(MODEL_T_MALL_SKU_ATTR_VALUE list_attr, T_MALL_SKU sku, T_MALL_PRODUCT spu) {
+    public ModelAndView save_sku(MODEL_T_MALL_SKU_ATTR_VALUE list_attr, T_MALL_SKU sku, T_MALL_PRODUCT spu, T_MALL_PRODUCT_SKU_INFO sku_info) {
 
-        skuService.save_sku(list_attr.getList_attr(), sku, spu);
+        skuService.save_sku(list_attr.getList_attr(), sku, spu,sku_info);
         //ModelAndView mv = new ModelAndView("redirect:/goto_sku_add.do");
         //mv.addObject("flbh1",spu.getFlbh1());
         //mv.addObject("flbh2",spu.getFlbh2());

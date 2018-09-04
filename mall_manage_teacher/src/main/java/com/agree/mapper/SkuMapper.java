@@ -10,6 +10,8 @@ public interface SkuMapper {
     public void insert_sku(T_MALL_SKU sku);
 
     public void insert_sku_attr_value(Map<Object,Object> map);
+
+    void insert_sku_info(Map<Object, Object> map);
 }
 
 

@@ -69,4 +69,15 @@ public class SpuServiceImpl implements SpuService{
         return spuMapper.select_spu_list(pp_id, flbh2);
     }
 
+    @Override
+    public OBJECT_T_MALL_PRODUCT get_spu_sale_attr(int spu_id) {
+        List<T_MALL_PRODUCT_COLOR> list_color = spuMapper.select_color_list(spu_id);
+        List<T_MALL_PRODUCT_VERSION> list_version = spuMapper.select_version_list(spu_id);
+        OBJECT_T_MALL_PRODUCT spu = new OBJECT_T_MALL_PRODUCT();
+        spu.setList_color(list_color);
+        spu.setList_version(list_version);
+        return spu;
+    }
+
+
 }

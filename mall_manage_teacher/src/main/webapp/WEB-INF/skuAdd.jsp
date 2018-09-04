@@ -17,7 +17,7 @@
         <input type="hidden" value="${flbh1}" name="flbh1"/>
         <input type="hidden" value="${flbh2}" name="flbh2"/>
         品牌：<select id="sku_tm_select" name="pp_id" onchange="get_spu_list(this.value)"></select>
-        商品：<select id="spu_list" name="id"></select>
+        商品：<select id="spu_list" name="id" onchange="get_spu_sale_attr(this.value)"></select>
         <hr>
         分类属性：<br>
         <c:forEach items="${list_attr}" var="attr" varStatus="status">
@@ -35,6 +35,10 @@
         商品库存数量：<input type="text" name="kc"/><br>
         商品库存价格：<input type="text" name="jg"/><br>
         商品库存地址：<input type="text" name="kcdz"/><br>
+        <div id="saleAttr" style="display: none;">
+            颜色：<div class="colorAttr"></div>
+            版本：<div class="versionAttr"></div>
+        </div>
         <input type="submit" value="提交"/>
     </form>
     <script type="text/javascript">
@@ -52,11 +56,29 @@
         function get_spu_list(pp_id) {
             var flbh2 = "${flbh2}"
             $.post("get_spu_list.do",{pp_id:pp_id,flbh2:flbh2},function (data) {
+                $("#spu_list").empty();
+                $("#spu_list").append("<option>请选择</option>");
                 $(data).each(function (i,item) {
                     $("#spu_list").append("<option value='"+item.id+"'>"+item.shp_mch+"</option>");
                 })
             });
         }
+
+        function get_spu_sale_attr(spu_id) {
+            $.post("get_spu_sale_attr.do",{spu_id:spu_id},function (data) {
+                $("#saleAttr").show();
+                $(".colorAttr").empty();
+                $(".versionAttr").empty();
+                $(data.list_color).each(function (i,item) {
+                    $(".colorAttr").append("<input type='radio' value='"+item.id+"' name='shp_ys'/>"+ item.shp_ys);
+                })
+                $(data.list_version).each(function (i,item) {
+                    var val = '${item.shp_bb}';
+                    $(".versionAttr").append("<input type='radio' value='"+item.id+"' name='shp_bb'/>"+item.shp_bb);
+                })
+            });
+        }
+
 
         function show_val(attr_id) {
             $("#val_"+attr_id).toggle();

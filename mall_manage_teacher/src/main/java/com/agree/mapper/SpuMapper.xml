@@ -37,4 +37,16 @@
 		WHERE
 		pp_id=#{pp_id} and flbh2=#{flbh2}
 	</select>
+
+	<select id="select_color_list" parameterType="int" resultType="com.agree.bean.T_MALL_PRODUCT_COLOR">
+		SELECT * FROM t_mall_product_color
+		WHERE
+		shp_id=#{spu_id}
+	</select>
+
+	<select id="select_version_list" parameterType="int" resultType="com.agree.bean.T_MALL_PRODUCT_VERSION">
+		SELECT * FROM t_mall_product_version
+		WHERE
+		shp_id=#{spu_id}
+	</select>
 </mapper>

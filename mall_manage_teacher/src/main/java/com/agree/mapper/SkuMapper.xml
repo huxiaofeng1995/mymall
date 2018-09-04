@@ -16,4 +16,10 @@
 		</foreach>
 	</insert>
 
+	<insert id="insert_sku_info" parameterType="Map">
+		insert into t_mall_product_sku_info(sku_id,pp_id,shp_ys,shp_bb)
+		VALUES
+		(#{sku_id},#{sku_info.pp_id},#{sku_info.shp_ys},#{sku_info.shp_bb})
+	</insert>
+
 </mapper>

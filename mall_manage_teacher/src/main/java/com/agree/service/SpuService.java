@@ -12,4 +12,6 @@ public interface SpuService {
     public void sava_spu2(List<String> imgs, T_MALL_PRODUCT spu);
 
     public List<T_MALL_PRODUCT> get_spu_list(int pp_id, int flbh2);
+
+    OBJECT_T_MALL_PRODUCT get_spu_sale_attr(int spu_id);
 }

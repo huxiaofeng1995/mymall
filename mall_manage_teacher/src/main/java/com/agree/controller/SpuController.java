@@ -28,6 +28,12 @@ public class SpuController {
         return spuService.get_spu_list(pp_id, flbh2);
     }
 
+    @RequestMapping("get_spu_sale_attr")
+    @ResponseBody
+    public OBJECT_T_MALL_PRODUCT get_spu_sale_attr(int spu_id){
+        return spuService.get_spu_sale_attr(spu_id);
+    }
+
     @RequestMapping("goto_spu_add")
     public String goto_spu_add(ModelMap map, T_MALL_PRODUCT spu) {
         map.put("spu", spu);
