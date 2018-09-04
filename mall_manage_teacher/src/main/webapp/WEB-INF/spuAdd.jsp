@@ -39,11 +39,11 @@
 	<script type="text/javascript">
 		function addColor() {
             var count = $("#colorDiv input").length;
-            $("#colorDiv").append("<input type='text' name='list_color["+count+"].shp_ys'/>");
+            $("#colorDiv button").before("<input type='text' name='list_color["+count+"].shp_ys'/>");
         }
         function addVersion() {
             var count = $("#versionDiv input").length;
-            $("#colorDiv").append("<input type='text' name='list_version["+count+"].shp_bb'/>");
+            $("#versionDiv button").before("<input type='text' name='list_version["+count+"].shp_bb'/>");
         }
         function cimg(index){
             $("#file_"+index).click();//触发文件input的点击事件

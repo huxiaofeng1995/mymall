@@ -16,6 +16,22 @@
 		</foreach>
 	</insert>
 
+	<insert id="insert_colors"  parameterType="Map">
+		INSERT INTO T_MALL_PRODUCT_COLOR(SHP_ID,shp_ys)
+		VALUES
+		<foreach item="color" collection="list_color" separator=",">
+			(#{shp_id},#{color.shp_ys})
+		</foreach>
+	</insert>
+
+	<insert id="insert_versions"  parameterType="Map">
+		INSERT INTO T_MALL_PRODUCT_VERSION(SHP_ID,shp_bb)
+		VALUES
+		<foreach item="version" collection="list_version" separator=",">
+			(#{shp_id},#{version.shp_bb})
+		</foreach>
+	</insert>
+
 	<select id="select_spu_list" resultType="com.agree.bean.T_MALL_PRODUCT">
 		select * from t_mall_product
 		WHERE
