@@ -1,13 +1,14 @@
 package com.agree.service.impl;
 
-import com.agree.bean.DETAIL_T_MALL_SKU;
-import com.agree.bean.T_MALL_SKU;
+import com.agree.bean.*;
 import com.agree.mapper.ItemMapper;
 import com.agree.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ItemServiceImpl implements ItemService{
@@ -24,5 +25,23 @@ public class ItemServiceImpl implements ItemService{
     public DETAIL_T_MALL_SKU get_sku_detail(int sku_id) {
 
         return itemMapper.select_detail_sku(sku_id);
+    }
+
+    @Override
+    public OBJECT_T_MALL_PRODUCT get_spu_sale_attr(int spu_id) {
+        List<T_MALL_PRODUCT_COLOR> list_color = itemMapper.select_color_list(spu_id);
+        List<T_MALL_PRODUCT_VERSION> list_version = itemMapper.select_version_list(spu_id);
+        OBJECT_T_MALL_PRODUCT spu = new OBJECT_T_MALL_PRODUCT();
+        spu.setList_color(list_color);
+        spu.setList_version(list_version);
+        return spu;
+    }
+
+    @Override
+    public T_MALL_PRODUCT_SKU_INFO get_sku_id(int color, int version) {
+        Map<String,Integer> map = new HashMap<>();
+        map.put("color", color);
+        map.put("version", version);
+        return itemMapper.select_skuId(map);
     }
 }

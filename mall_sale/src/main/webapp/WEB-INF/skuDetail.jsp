@@ -13,9 +13,25 @@
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
-    $(function () {
-        console.log('${detail_sku}')
-    })
+    function get_skuid(dom) {
+
+        $(dom).parent().parent().children().removeClass("attrselected");
+        $(dom).parent().addClass("attrselected");
+        var $color = $(".colorItem .attrselected");
+        var $version = $(".versionItem .attrselected");
+        if($color.length==1&&$version.length==1){
+            var color_id = $color.attr("data-id");
+            var version_id =$version.attr("data-id");
+            $.get("/get_skuId.do?color_id="+color_id+"&version_id="+version_id,function (data) {
+                var spu_id = '${detail_sku.spu.id}';
+                if(data != "-1"){
+                    location.href="goto_sku_detail.do?sku_id="+data+"&spu_id="+spu_id;
+                }else {
+                    console.log(data);
+                }
+            })
+        }
+    }
 </script>
 <title>硅谷商城</title>
 </head>
@@ -47,19 +63,22 @@
                 <p>促销价：<strong>${detail_sku.jg}</strong></p>
             </div>
             <div class="clear">
-                <div class="min_t">选择版本：</div>
+                <div class="min_t">选择类型：</div>
                 <c:forEach items="${list_sku}" var="sku">
                     <div class="min_mx"><a href="goto_sku_detail.do?sku_id=${sku.id}&spu_id=${sku.shp_id}" >${sku.sku_mch}</a></div>
                 </c:forEach>
             </div>
-            <div class="clear">
-                <div class="min_t" onclick=func($(this),'1')>服务：</div>
-                <div class="min_mx" onclick=func($(this),'1')>服务1号1</div>
-                <div class="min_mx" onclick=func($(this),'1')>服务二号1112</div>
-                <div class="min_mx" onclick=func($(this),'1')>55英服务二号1111寸活动中3</div>
-                <div class="min_mx" onclick=func($(this),'1')>4</div>
-                <div class="min_mx" onclick=func($(this),'1')>呃呃呃5</div>
-                <div class="min_mx" onclick=func($(this),'1')>55英寸活动中6</div>
+            <div class="clear colorItem">
+                <div class="min_t">颜色：</div>
+                <c:forEach items="${obj_spu.list_color}" var="color">
+                    <div class="min_mx " data-id="${color.id}"><a href="javascript:;" onclick="get_skuid(this)" >${color.shp_ys}</a></div>
+                </c:forEach>
+            </div>
+            <div class="clear versionItem">
+                <div class="min_t" >版本：</div>
+                <c:forEach items="${obj_spu.list_version}" var="version">
+                    <div class="min_mx" data-id="${version.id}"><a href="javascript:;" onclick="get_skuid(this)" >${version.shp_bb}</a></div>
+                </c:forEach>
             </div>
             <div class="clear" style="margin-top:20px;">
                 <div class="min_t" style="line-height:36px">数量：</div>
