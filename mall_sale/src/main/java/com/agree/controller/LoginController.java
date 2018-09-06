@@ -45,24 +45,25 @@ public class LoginController {
         response.addCookie(cookie);
 
         //同步购物车
-        combine_cart(user,response,session,list_cart_cookie);
+        combine_cart(user,response,session,list_cart_cookie,map);
 
         return "redirect:/index.do";
     }
 
-    private void combine_cart(T_MALL_USER_ACCOUNT user, HttpServletResponse response, HttpSession session, String list_cart_cookie) {
+    private void combine_cart(T_MALL_USER_ACCOUNT user, HttpServletResponse response, HttpSession session, String list_cart_cookie,ModelMap map) {
         List<T_MALL_SHOPPINGCAR> list_cart = new ArrayList<T_MALL_SHOPPINGCAR>();
         List<T_MALL_SHOPPINGCAR> list_cart_db = new ArrayList<T_MALL_SHOPPINGCAR>();
-        try {
-            list_cart_cookie = URLDecoder.decode(list_cart_cookie , "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        list_cart = JSON.parseArray(list_cart_cookie,T_MALL_SHOPPINGCAR.class);//在cookie中的购物车
+
         list_cart_db = cartService.get_cart_list_by_user(user);//在db中的购物车
         if(StringUtils.isBlank(list_cart_cookie)){
 
         }else {
+            try {
+                list_cart_cookie = URLDecoder.decode(list_cart_cookie , "utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            list_cart = JSON.parseArray(list_cart_cookie,T_MALL_SHOPPINGCAR.class);//在cookie中的购物车
             for(T_MALL_SHOPPINGCAR cart : list_cart){
                 cart.setYh_id(user.getId());//注意cookie中取出来的cart是没有用户id的，这里我们要设置用户id再执行插入
                 boolean flag = cartService.if_cart_exists(cart);
@@ -82,8 +83,16 @@ public class LoginController {
             }
 
         }
+        int shp_count = 0 ;
+        double sum = 0.0;
         //同步session,清空cookie
         session.setAttribute("list_cart_session", cartService.get_cart_list_by_user(user));
+        for(T_MALL_SHOPPINGCAR cart : list_cart){
+            shp_count += cart.getTjshl();
+            sum += cart.getHj();
+        }
+        map.put("shp_count", shp_count);
+        map.put("sum", sum);
         response.addCookie(new Cookie("list_cart_cookie",""));
     }
 }

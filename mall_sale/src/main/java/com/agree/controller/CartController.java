@@ -29,20 +29,29 @@ public class CartController {
     public String mini_cart(HttpSession session,@CookieValue(value = "list_cart_cookie",required = false) String list_cart_cookie,Map map){
         List<T_MALL_SHOPPINGCAR> list_cart = new ArrayList<T_MALL_SHOPPINGCAR>();
         T_MALL_USER_ACCOUNT user = (T_MALL_USER_ACCOUNT) session.getAttribute("user");
-        try {
-            list_cart_cookie = URLDecoder.decode(list_cart_cookie , "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+
         if(user == null){
             //从cookie中获取
             if(!StringUtils.isBlank(list_cart_cookie)){
+                try {
+                    list_cart_cookie = URLDecoder.decode(list_cart_cookie , "utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 list_cart = JSON.parseArray(list_cart_cookie,T_MALL_SHOPPINGCAR.class);
             }
         }else {
             list_cart = (List<T_MALL_SHOPPINGCAR>) session.getAttribute("list_cart_session");
         }
+        int shp_count = 0 ;
+        double sum = 0.0;
         map.put("list_cart", list_cart);
+        for(T_MALL_SHOPPINGCAR cart : list_cart){
+            shp_count += cart.getTjshl();
+            sum += cart.getHj();
+        }
+        map.put("shp_count", shp_count);
+        map.put("sum", sum);
         return "miniCartList";
     }
 
