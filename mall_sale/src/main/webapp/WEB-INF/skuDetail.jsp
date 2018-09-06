@@ -32,6 +32,9 @@
             })
         }
     }
+    function cart_submit(){
+        $("#cartForm").submit();
+    }
 </script>
 <title>硅谷商城</title>
 </head>
@@ -92,7 +95,21 @@
             </div>
             <div class="clear" style="margin-top:20px;">
                 <img src="images/mai.jpg" alt="">
-                <img src="images/shop.jpg" alt="">
+                <form id="cartForm" action="add_cart.do" method="post">
+                    <input type="hidden" name="sku_mch" value="${detail_sku.sku_mch}"/>
+                    <input type="hidden" name="sku_jg" value="${detail_sku.jg}"/>
+                    <input type="hidden" name="tjshl" value="1"/>
+                    <input type="hidden" name="hj" value="${detail_sku.jg}"/>
+                    <input type="hidden" name="shp_id" value="${detail_sku.shp_id}"/>
+                    <input type="hidden" name="sku_id" value="${detail_sku.id}"/>
+                    <input type="hidden" name="shp_tp" value="${detail_sku.spu.shp_tp}"/>
+                    <input type="hidden" name="shfxz" value="1"/>
+                    <input type="hidden" name="kcdz" value="${detail_sku.kcdz}"/>
+                    <c:if test="${not empty user}">
+                        <input type="hidden" name="yh_id" value="${user.id}"/>
+                    </c:if>
+                    <img src="images/shop.jpg" alt="" onclick="cart_submit()">
+                </form>
             </div>
         </div>
     </div>

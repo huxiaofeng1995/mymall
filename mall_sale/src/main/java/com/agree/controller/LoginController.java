@@ -19,6 +19,7 @@ public class LoginController {
     public String login(T_MALL_USER_ACCOUNT user, HttpSession session, HttpServletRequest request, HttpServletResponse response,ModelMap map){
         //查询数据库登录
         //省略了
+        user.setId(1);//测试使用
 
         session.setAttribute("user",user);
         Cookie cookie = null;
