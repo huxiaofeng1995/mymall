@@ -1,6 +1,7 @@
 package com.agree.service.impl;
 
 import com.agree.bean.T_MALL_SHOPPINGCAR;
+import com.agree.bean.T_MALL_USER_ACCOUNT;
 import com.agree.mapper.CartMapper;
 import com.agree.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,10 @@ public class CartServiceImpl implements CartService {
     @Override
     public void update_cart(T_MALL_SHOPPINGCAR cart) {
         cartMapper.update_cart(cart);
+    }
+
+    @Override
+    public List<T_MALL_SHOPPINGCAR> get_cart_list_by_user(T_MALL_USER_ACCOUNT user) {
+        return cartMapper.select_list_cart_by_user(user);
     }
 }

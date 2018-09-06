@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8"%>
 <%@page isELIgnored="false"  %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -11,27 +11,29 @@
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
-	function b(){}
 </script>
 <title>硅谷商城</title>
 </head>
 <body>
-	<div class="search">
-		<div class="logo"><img src="./images/logo.jpg" alt=""></div>
-		<div class="search_on">
-			<div class="se">
-				<input type="text" name="search" class="lf">
-				<input type="submit" class="clik" value="搜索">
-			</div>
-			<div class="se">
-				<a href="">取暖神奇</a>
-				<a href="">1元秒杀</a>
-				<a href="">吹风机</a>
-				<a href="">玉兰油</a>
-			</div>
-		</div>
-		<jsp:include page="miniCart.jsp"/>
-	</div>
-
+<div>
+<h6 style="margin-left: 20px">最新加入的商品</h6>
+</div>
+<c:forEach items="${list_cart}" var="cart">
+    <div class="one">
+    <img src="upload/image/${cart.shp_tp}" width="60px"/>
+    <span class="one_name" style="font-size: 12px">
+        ${cart.sku_mch}
+    </span>
+    <span class="one_prece" style="font-size: 12px">
+        <b>￥${cart.sku_jg} X ${cart.tjshl}</b><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
+    </span>
+    </div>
+</c:forEach>
+<div class="gobottom">
+    共<span>2</span>件商品&nbsp;&nbsp;&nbsp;&nbsp;
+    共计￥<span>20000</span>
+    <button class="goprice">去购物车</button>
+</div>
 </body>
 </html>

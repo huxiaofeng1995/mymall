@@ -1,6 +1,7 @@
 package com.agree.controller;
 
 import com.agree.bean.T_MALL_SHOPPINGCAR;
+import com.agree.bean.T_MALL_USER_ACCOUNT;
 import com.agree.service.CartService;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
@@ -12,13 +13,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class CartController {
     @Autowired
     private CartService cartService;
+
+    @RequestMapping("/miniCart")
+    public String mini_cart(HttpSession session,@CookieValue(value = "list_cart_cookie",required = false) String list_cart_cookie,Map map){
+        List<T_MALL_SHOPPINGCAR> list_cart = new ArrayList<T_MALL_SHOPPINGCAR>();
+        T_MALL_USER_ACCOUNT user = (T_MALL_USER_ACCOUNT) session.getAttribute("user");
+        try {
+            list_cart_cookie = URLDecoder.decode(list_cart_cookie , "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        if(user == null){
+            //从cookie中获取
+            if(!StringUtils.isBlank(list_cart_cookie)){
+                list_cart = JSON.parseArray(list_cart_cookie,T_MALL_SHOPPINGCAR.class);
+            }
+        }else {
+            list_cart = (List<T_MALL_SHOPPINGCAR>) session.getAttribute("list_cart_session");
+        }
+        map.put("list_cart", list_cart);
+        return "miniCartList";
+    }
 
     @RequestMapping("/add_cart")
     public String add_cart(@CookieValue(value = "list_cart_cookie",required = false) String list_cart_cookie, T_MALL_SHOPPINGCAR cart, HttpServletResponse response, HttpSession session){
@@ -45,7 +71,13 @@ public class CartController {
                     list_cart.add(cart);
                 }
             }
-            Cookie cookie = new Cookie("list_cart_cookie", JSON.toJSONString(list_cart));
+            String json = "";
+            try {
+                json = URLEncoder.encode(JSON.toJSONString(list_cart),"utf-8");//解决cookie中文乱码的问题
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            Cookie cookie = new Cookie("list_cart_cookie", json);
             cookie.setPath("/");
             cookie.setMaxAge(60*60*24);
             response.addCookie(cookie);
