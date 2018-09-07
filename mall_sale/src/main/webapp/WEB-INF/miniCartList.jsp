@@ -16,6 +16,9 @@
         if( count != null &&  count != "")
         $(".card .num").text(count);
     })
+    function goto_cart_list() {
+        location.href = "/goto_cart_list.do"
+    }
 </script>
 <title>硅谷商城</title>
 </head>
@@ -38,7 +41,7 @@
 <div class="gobottom">
     共<span class="count">${shp_count}</span>件商品&nbsp;&nbsp;&nbsp;&nbsp;
     共计￥<span class="sum">${sum}</span>
-    <button class="goprice"><a href="goto_cart_list.do" target="_blank">去购物车</a></button>
+    <button class="goprice" onclick="goto_cart_list()" style="cursor: pointer;">去购物车</button>
 </div>
 </body>
 </html>

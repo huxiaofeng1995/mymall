@@ -108,7 +108,7 @@
                     <c:if test="${not empty user}">
                         <input type="hidden" name="yh_id" value="${user.id}"/>
                     </c:if>
-                    <img src="images/shop.jpg" alt="" onclick="cart_submit()">
+                    <img src="images/shop.jpg" alt="" onclick="cart_submit()" style="cursor: pointer;">
                 </form>
             </div>
         </div>

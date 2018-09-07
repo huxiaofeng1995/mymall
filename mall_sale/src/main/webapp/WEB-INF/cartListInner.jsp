@@ -11,6 +11,15 @@
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
+    function change_cart(checked, sku_id) {
+        var shfxz = "0";
+        if(checked){
+            shfxz = "1";
+        }
+        $.post("change_cart.do",{sku_id:sku_id,shfxz:shfxz},function(data){
+            $("#cartListInner").html(data);
+        });
+    }
 </script>
 <title>硅谷商城</title>
 </head>
