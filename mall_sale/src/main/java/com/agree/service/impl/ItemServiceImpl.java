@@ -44,4 +44,9 @@ public class ItemServiceImpl implements ItemService{
         map.put("version", version);
         return itemMapper.select_skuId(map);
     }
+
+    @Override
+    public OBJECT_PRODUCT_SKU_INFO get_sale_attr_by_skuId(int sku_id) {
+        return itemMapper.select_sale_attr_by_skuId(sku_id);
+    }
 }

@@ -16,4 +16,6 @@ public interface ItemMapper {
     List<T_MALL_PRODUCT_VERSION> select_version_list(int spu_id);
 
     T_MALL_PRODUCT_SKU_INFO select_skuId(Map<String, Integer> map);
+
+    OBJECT_PRODUCT_SKU_INFO select_sale_attr_by_skuId(int sku_id);
 }

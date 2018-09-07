@@ -1,8 +1,10 @@
 package com.agree.controller;
 
+import com.agree.bean.OBJECT_PRODUCT_SKU_INFO;
 import com.agree.bean.T_MALL_SHOPPINGCAR;
 import com.agree.bean.T_MALL_USER_ACCOUNT;
 import com.agree.service.CartService;
+import com.agree.service.ItemService;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,44 @@ import java.util.Map;
 public class CartController {
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private ItemService itemService;
+
+    @RequestMapping("/goto_cart_list")
+    public String goto_cart_list(HttpSession session,@CookieValue(value = "list_cart_cookie",required = false) String list_cart_cookie,Map map){
+        List<T_MALL_SHOPPINGCAR> list_cart = new ArrayList<T_MALL_SHOPPINGCAR>();
+        T_MALL_USER_ACCOUNT user = (T_MALL_USER_ACCOUNT) session.getAttribute("user");
+
+        if(user == null){
+            //从cookie中获取
+            if(!StringUtils.isBlank(list_cart_cookie)){
+                try {
+                    list_cart_cookie = URLDecoder.decode(list_cart_cookie , "utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                list_cart = JSON.parseArray(list_cart_cookie,T_MALL_SHOPPINGCAR.class);
+            }
+        }else {
+            list_cart = (List<T_MALL_SHOPPINGCAR>) session.getAttribute("list_cart_session");
+        }
+        int shp_count = 0 ;
+        double sum = 0.0;
+        List<OBJECT_PRODUCT_SKU_INFO> obj_attr = new ArrayList<>();
+        map.put("list_cart", list_cart);
+        for(T_MALL_SHOPPINGCAR cart : list_cart){
+            shp_count += cart.getTjshl();
+            if(cart.getShfxz().equals("1")) {//选中的才统计金额
+                sum += cart.getHj();
+            }
+            obj_attr.add(itemService.get_sale_attr_by_skuId(cart.getSku_id()));
+        }
+        map.put("shp_count", shp_count);
+        map.put("sum", sum);
+        map.put("obj_attr",obj_attr);
+        return "cartList";
+    }
 
     @RequestMapping("/miniCart")
     public String mini_cart(HttpSession session,@CookieValue(value = "list_cart_cookie",required = false) String list_cart_cookie,Map map){

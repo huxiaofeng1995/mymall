@@ -26,7 +26,7 @@
 </head>
 <body>
 <div class="card">
-    <a href="" id="cart">购物车<div class="num">0</div></a>
+    <a href="goto_cart_list.do" target="_blank" id="cart">购物车<div class="num">0</div></a>
 
     <!--购物车商品-->
     <div id="cart_list" class="cart_pro" style="display: none;">

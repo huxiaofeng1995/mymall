@@ -1,9 +1,6 @@
 package com.agree.service;
 
-import com.agree.bean.DETAIL_T_MALL_SKU;
-import com.agree.bean.OBJECT_T_MALL_PRODUCT;
-import com.agree.bean.T_MALL_PRODUCT_SKU_INFO;
-import com.agree.bean.T_MALL_SKU;
+import com.agree.bean.*;
 
 import java.util.List;
 
@@ -16,4 +13,6 @@ public interface ItemService {
     OBJECT_T_MALL_PRODUCT get_spu_sale_attr(int spu_id);
 
     T_MALL_PRODUCT_SKU_INFO get_sku_id(int color, int version);
+
+    OBJECT_PRODUCT_SKU_INFO get_sale_attr_by_skuId(int sku_id);
 }
