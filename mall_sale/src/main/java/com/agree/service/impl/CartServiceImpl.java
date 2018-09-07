@@ -38,4 +38,9 @@ public class CartServiceImpl implements CartService {
     public List<T_MALL_SHOPPINGCAR> get_cart_list_by_user(T_MALL_USER_ACCOUNT user) {
         return cartMapper.select_list_cart_by_user(user);
     }
+
+    @Override
+    public void delete_cart(T_MALL_SHOPPINGCAR t_mall_shoppingcar) {
+        cartMapper.delete_cart(t_mall_shoppingcar);
+    }
 }

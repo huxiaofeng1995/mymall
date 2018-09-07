@@ -31,6 +31,51 @@ public class CartController {
     @Autowired
     private ItemService itemService;
 
+    @RequestMapping("/del_cart")
+    public String delete_cart(HttpServletResponse response,HttpSession session,@CookieValue(value = "list_cart_cookie",required = false) String list_cart_cookie,Map map,T_MALL_SHOPPINGCAR shoppingcar){
+        List<T_MALL_SHOPPINGCAR> list_cart = new ArrayList<T_MALL_SHOPPINGCAR>();
+        T_MALL_USER_ACCOUNT user = (T_MALL_USER_ACCOUNT) session.getAttribute("user");
+        if(user == null) {
+            //从cookie中获取
+            try {
+                list_cart_cookie = URLDecoder.decode(list_cart_cookie , "utf-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            list_cart = JSON.parseArray(list_cart_cookie,T_MALL_SHOPPINGCAR.class);
+        }else {
+            list_cart = (List<T_MALL_SHOPPINGCAR>) session.getAttribute("list_cart_session");
+        }
+        for(T_MALL_SHOPPINGCAR cart : list_cart){
+            if(cart.getSku_id() == shoppingcar.getSku_id()){
+                if(user == null){
+                    list_cart.remove(cart);
+                    String json = "";
+                    try {
+                        json = URLEncoder.encode(JSON.toJSONString(list_cart),"utf-8");//解决cookie中文乱码的问题
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    Cookie cookie = new Cookie("list_cart_cookie", json);
+                    cookie.setPath("/");
+                    cookie.setMaxAge(60*60*24);
+                    response.addCookie(cookie);
+                }else {
+                    cartService.delete_cart(cart);
+                    list_cart.remove(cart);
+                }
+            }
+        }
+        List<OBJECT_PRODUCT_SKU_INFO> obj_attr = new ArrayList<>();
+        map.put("list_cart", list_cart);
+        for(T_MALL_SHOPPINGCAR cart : list_cart){
+            obj_attr.add(itemService.get_sale_attr_by_skuId(cart.getSku_id()));
+        }
+        map.put("sum", getMoney(list_cart));
+        map.put("obj_attr",obj_attr);
+        return "cartListInner";
+    }
+
     @RequestMapping("/change_cart")
     public String change_cart(HttpServletResponse response,HttpSession session,@CookieValue(value = "list_cart_cookie",required = false) String list_cart_cookie,Map map,T_MALL_SHOPPINGCAR shoppingcar){
         List<T_MALL_SHOPPINGCAR> list_cart = new ArrayList<T_MALL_SHOPPINGCAR>();

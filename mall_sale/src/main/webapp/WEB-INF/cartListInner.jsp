@@ -20,6 +20,11 @@
             $("#cartListInner").html(data);
         });
     }
+    function del_cart(sku_id) {
+        $.post("del_cart.do",{sku_id:sku_id},function (data) {
+            $("#cartListInner").html(data);
+        })
+    }
 </script>
 <title>硅谷商城</title>
 </head>
@@ -49,7 +54,7 @@
                 </td>
                 <td>${cart.hj}</td>
                 <td><input type="text" name="min" value="${cart.tjshl}" style="width:50px;text-align:center"></td>
-                <td><a href="del_cart.do?cartId=${cart.id}" >删除</a></td>
+                <td><a href="javascript:del_cart(${cart.sku_id});">删除</a></td>
             </tr>
         </c:forEach>
         </tbody>

@@ -13,4 +13,6 @@ public interface CartService {
     void update_cart(T_MALL_SHOPPINGCAR t_mall_shoppingcar);
 
     List<T_MALL_SHOPPINGCAR> get_cart_list_by_user(T_MALL_USER_ACCOUNT user);
+
+    void delete_cart(T_MALL_SHOPPINGCAR t_mall_shoppingcar);
 }

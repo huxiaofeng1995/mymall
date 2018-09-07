@@ -52,6 +52,11 @@
 			and yh_id = #{yh_id}
 		</if>
 	</update>
+
+	<delete id="delete_cart" parameterType="com.agree.bean.T_MALL_SHOPPINGCAR">
+		DELETE FROM t_mall_shoppingcar WHERE id=#{id}
+	</delete>
+
 	<select id="select_list_cart_by_user" parameterType="com.agree.bean.T_MALL_USER_ACCOUNT"
 			resultType="com.agree.bean.T_MALL_SHOPPINGCAR">
 		select * from t_mall_shoppingcar where yh_id = #{id}
