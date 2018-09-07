@@ -11,7 +11,11 @@
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
-    $(".card .num").text('${shp_count}');
+    $(function () {
+        var count = '${shp_count}';
+        if( count != null &&  count != "")
+        $(".card .num").text(count);
+    })
 </script>
 <title>硅谷商城</title>
 </head>
@@ -34,7 +38,7 @@
 <div class="gobottom">
     共<span class="count">${shp_count}</span>件商品&nbsp;&nbsp;&nbsp;&nbsp;
     共计￥<span class="sum">${sum}</span>
-    <button class="goprice">去购物车</button>
+    <button class="goprice"><a href="goto_cart_list.do" target="_blank">去购物车</a></button>
 </div>
 </body>
 </html>

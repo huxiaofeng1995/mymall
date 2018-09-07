@@ -16,6 +16,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -48,21 +49,24 @@ public class CartController {
         }else {
             list_cart = (List<T_MALL_SHOPPINGCAR>) session.getAttribute("list_cart_session");
         }
-        int shp_count = 0 ;
-        double sum = 0.0;
         List<OBJECT_PRODUCT_SKU_INFO> obj_attr = new ArrayList<>();
         map.put("list_cart", list_cart);
         for(T_MALL_SHOPPINGCAR cart : list_cart){
-            shp_count += cart.getTjshl();
-            if(cart.getShfxz().equals("1")) {//选中的才统计金额
-                sum += cart.getHj();
-            }
             obj_attr.add(itemService.get_sale_attr_by_skuId(cart.getSku_id()));
         }
-        map.put("shp_count", shp_count);
-        map.put("sum", sum);
+        map.put("sum", getMoney(list_cart));
         map.put("obj_attr",obj_attr);
         return "cartList";
+    }
+
+    private BigDecimal getMoney(List<T_MALL_SHOPPINGCAR> list_cart) {
+        BigDecimal sum = new BigDecimal("0");
+        for(T_MALL_SHOPPINGCAR cart : list_cart){
+            if(cart.getShfxz().equals("1")) {//选中的才统计金额
+                sum = sum.add(new BigDecimal(cart.getHj() + ""));//添加前要先转换
+            }
+        }
+        return sum;
     }
 
     @RequestMapping("/miniCart")
@@ -84,11 +88,11 @@ public class CartController {
             list_cart = (List<T_MALL_SHOPPINGCAR>) session.getAttribute("list_cart_session");
         }
         int shp_count = 0 ;
-        double sum = 0.0;
+        BigDecimal sum = new BigDecimal("0");
         map.put("list_cart", list_cart);
         for(T_MALL_SHOPPINGCAR cart : list_cart){
             shp_count += cart.getTjshl();
-            sum += cart.getHj();
+            sum = sum.add(new BigDecimal(cart.getHj() + ""));//添加前要先转换
         }
         map.put("shp_count", shp_count);
         map.put("sum", sum);
