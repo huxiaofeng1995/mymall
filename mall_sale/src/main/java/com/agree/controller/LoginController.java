@@ -2,9 +2,12 @@ package com.agree.controller;
 
 import com.agree.bean.T_MALL_SHOPPINGCAR;
 import com.agree.bean.T_MALL_USER_ACCOUNT;
+import com.agree.server.LoginServer;
 import com.agree.service.CartService;
+import com.agree.util.MyPropertyUtil;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,24 +32,32 @@ public class LoginController {
 
     @RequestMapping(value="/login")
     public String login(@CookieValue(value = "list_cart_cookie",required = false) String list_cart_cookie, T_MALL_USER_ACCOUNT user, HttpSession session, HttpServletRequest request, HttpServletResponse response, ModelMap map){
-        //查询数据库登录
-        //省略了
-        user.setId(1);//测试使用
+        T_MALL_USER_ACCOUNT select_user1 = new T_MALL_USER_ACCOUNT();
+                //登录，远程用户认证接口
+        JaxWsProxyFactoryBean jwfb = new JaxWsProxyFactoryBean();
+        jwfb.setAddress(MyPropertyUtil.getProperty("ws.properties", "login_url"));
+        jwfb.setServiceClass(LoginServer.class);
+        LoginServer loginServer = (LoginServer) jwfb.create();
+        String result = loginServer.login(user);
+        T_MALL_USER_ACCOUNT select_user = (T_MALL_USER_ACCOUNT) JSON.parse(result);
+        //user.setId(1);//测试使用
+        if(select_user.getId() == 0){
+            return "redirect:/goto_login.do";
+        }else {
+            session.setAttribute("user", select_user);
+            Cookie cookie = null;
+            try {
+                cookie = new Cookie("yh_nch", URLEncoder.encode(user.getYh_mch(), "utf-8"));//中文转码
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            cookie.setPath("/");//当类上加了requestMapping注解后，一定要setPath（"/"）
+            cookie.setMaxAge(60 * 60 * 24);//必须设置过期时间，否则秒过期
+            response.addCookie(cookie);
 
-        session.setAttribute("user",user);
-        Cookie cookie = null;
-        try {
-            cookie = new Cookie("yh_nch", URLEncoder.encode(user.getYh_mch(),"utf-8"));//中文转码
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            //同步购物车
+            combine_cart(user, response, session, list_cart_cookie, map);
         }
-        cookie.setPath("/");//当类上加了requestMapping注解后，一定要setPath（"/"）
-        cookie.setMaxAge(60*60*24);//必须设置过期时间，否则秒过期
-        response.addCookie(cookie);
-
-        //同步购物车
-        combine_cart(user,response,session,list_cart_cookie,map);
-
         return "redirect:/index.do";
     }
 

@@ -25,6 +25,11 @@ public class IndexController {
 		return "login";
 	}
 
+	@RequestMapping(value="/goto_registry")
+	public String goto_registry(){
+		return "registry";
+	}
+
 	@RequestMapping(value="/index")
 	public String index(){
 		return "index";

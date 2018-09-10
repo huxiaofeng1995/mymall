@@ -42,7 +42,7 @@
 		<div class="top_text">
 			<c:if test="${empty user}">
 				<a href="goto_login.do">用户登录:<span id="show_name" style="color:red"></span></a>
-				<a href="">用户注册</a>
+				<a href="goto_registry.do">用户注册</a>
 			</c:if>
 			<c:if test="${not empty user}">
 				<a href="">用户名称:${user.yh_mch}</a>
