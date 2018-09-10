@@ -15,8 +15,17 @@ public class MyWsFactoryBean<T> implements FactoryBean<T> {
 		JaxWsProxyFactoryBean jwfb = new JaxWsProxyFactoryBean();
 		jwfb.setAddress(url);
 		jwfb.setServiceClass(t);
+		// 加入安全协议
+		if (t.getSimpleName().equals("LoginServer") ){
+			HashMap<String, Object> hashMap = new HashMap<String, Object>();
+			hashMap.put(WSHandlerConstants.ACTION, WSHandlerConstants.USERNAME_TOKEN);
+			hashMap.put(WSHandlerConstants.PASSWORD_TYPE, "PasswordText");
+			hashMap.put("user", "username");
+			hashMap.put(WSHandlerConstants.PW_CALLBACK_CLASS, MyCallback.class.getName());
+			WSS4JOutInterceptor wss4jOutInterceptor = new WSS4JOutInterceptor(hashMap);
+			jwfb.getOutInterceptors().add(wss4jOutInterceptor);
+		}
 		T bean = (T) jwfb.create();
-
 		return bean;
 	}
 	@Override

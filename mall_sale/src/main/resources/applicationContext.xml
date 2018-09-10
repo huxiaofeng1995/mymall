@@ -37,4 +37,5 @@
 		<property name="url" value="${login_url}"/>
 		<property name="t" value="com.agree.server.LoginServer"></property>
 	</bean>
+
 </beans>

@@ -64,6 +64,18 @@
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean" />
 	</bean>
 
+	<bean id="myCallback" class="com.agree.utils.MyCallback"></bean>
+
+	<bean id="in" class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+		<constructor-arg>
+			<map key-type="java.lang.String">
+				<entry key="action" value="UsernameToken"></entry>
+				<entry key="passwordType" value="PasswordText"></entry>
+				<entry key="passwordCallbackRef" value-ref="myCallback"></entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
 	<jaxws:endpoint address="/ws"
 		implementorClass="com.agree.server.TestServer">
 		<jaxws:implementor>
@@ -74,6 +86,9 @@
 
 	<jaxws:endpoint address="/login"
 		implementorClass="com.agree.server.LoginServer">
+		<jaxws:inInterceptors>
+			<ref bean="in"/>
+		</jaxws:inInterceptors>
 		<jaxws:implementor>
 			<bean class="com.agree.server.impl.LoginServerImpl"></bean>
 		</jaxws:implementor>

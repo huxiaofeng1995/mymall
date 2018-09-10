@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,12 @@ public class IndexController {
 
 	@Autowired
 	private ListService listService;
+
+	@RequestMapping(value="/goto_logout")
+	public String goto_logout(HttpSession session){
+		session.invalidate();
+		return "redirect:/goto_login.do";
+	}
 
 	@RequestMapping(value="/goto_login")
 	public String goto_login(){
