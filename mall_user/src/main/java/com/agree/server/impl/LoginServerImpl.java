@@ -27,4 +27,14 @@ public class LoginServerImpl implements LoginServer {
 		return JSONObject.toJSONString(select_user);
 	}
 
+	@Override
+	@Path("login2")
+	@GET
+	@Consumes("application/x-www-form-urlencoded")
+	@Produces("application/json")
+	public String login2(T_MALL_USER_ACCOUNT user) {
+		T_MALL_USER_ACCOUNT select_user = loginService.login2(user);
+		return JSONObject.toJSONString(select_user);
+	}
+
 }

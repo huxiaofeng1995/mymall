@@ -32,9 +32,15 @@ public class LoginController {
     private LoginServer loginServer;
 
     @RequestMapping(value="/login")
-    public String login(@CookieValue(value = "list_cart_cookie",required = false) String list_cart_cookie, T_MALL_USER_ACCOUNT user, HttpSession session, HttpServletRequest request, HttpServletResponse response, ModelMap map){
+    public String login(@CookieValue(value = "list_cart_cookie",required = false) String list_cart_cookie, T_MALL_USER_ACCOUNT user, HttpSession session,
+                        String dataSource_type,HttpServletRequest request, HttpServletResponse response, ModelMap map){
         //登录，远程用户认证接口
-        String result = loginServer.login(user);
+        String result = "";
+        if(dataSource_type.equals("1")) {
+            result = loginServer.login(user);
+        }else if(dataSource_type.equals("2")){
+            result = loginServer.login2(user);
+        }
 
         T_MALL_USER_ACCOUNT select_user = (T_MALL_USER_ACCOUNT) JSON.parseObject(result,T_MALL_USER_ACCOUNT.class);
         //user.setId(1);//测试使用

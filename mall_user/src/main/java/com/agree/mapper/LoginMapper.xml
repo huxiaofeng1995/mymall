@@ -8,4 +8,8 @@
 		and yh_mm = #{yh_mm}
 	</select>
 
+	<select id="select_user_by_username" parameterType="com.agree.bean.T_MALL_USER_ACCOUNT"
+			resultType="com.agree.bean.T_MALL_USER_ACCOUNT">
+		select * from t_mall_user_account where yh_mch = #{yh_mch}
+	</select>
 </mapper>
