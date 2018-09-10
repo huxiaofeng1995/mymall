@@ -4,10 +4,8 @@ import com.agree.bean.T_MALL_SHOPPINGCAR;
 import com.agree.bean.T_MALL_USER_ACCOUNT;
 import com.agree.server.LoginServer;
 import com.agree.service.CartService;
-import com.agree.util.MyPropertyUtil;
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,16 +28,15 @@ public class LoginController {
     @Autowired
     private CartService cartService;
 
+    @Autowired
+    private LoginServer loginServer;
+
     @RequestMapping(value="/login")
     public String login(@CookieValue(value = "list_cart_cookie",required = false) String list_cart_cookie, T_MALL_USER_ACCOUNT user, HttpSession session, HttpServletRequest request, HttpServletResponse response, ModelMap map){
-        T_MALL_USER_ACCOUNT select_user1 = new T_MALL_USER_ACCOUNT();
-                //登录，远程用户认证接口
-        JaxWsProxyFactoryBean jwfb = new JaxWsProxyFactoryBean();
-        jwfb.setAddress(MyPropertyUtil.getProperty("ws.properties", "login_url"));
-        jwfb.setServiceClass(LoginServer.class);
-        LoginServer loginServer = (LoginServer) jwfb.create();
+        //登录，远程用户认证接口
         String result = loginServer.login(user);
-        T_MALL_USER_ACCOUNT select_user = (T_MALL_USER_ACCOUNT) JSON.parse(result);
+
+        T_MALL_USER_ACCOUNT select_user = (T_MALL_USER_ACCOUNT) JSON.parseObject(result,T_MALL_USER_ACCOUNT.class);
         //user.setId(1);//测试使用
         if(select_user.getId() == 0){
             return "redirect:/goto_login.do";
