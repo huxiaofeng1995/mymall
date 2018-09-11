@@ -38,4 +38,9 @@
 		<property name="t" value="com.agree.server.LoginServer"></property>
 	</bean>
 
+	<bean class="com.agree.util.MyWsFactoryBean">
+		<property name="url" value="${userService_url}"/>
+		<property name="t" value="com.agree.server.UserServer"></property>
+	</bean>
+
 </beans>
