@@ -8,15 +8,15 @@ public class T_MALL_ADDRESS {
 	@FormParam("id")
 	private int id;
 	@FormParam("yh_dz")
-	private String yh_dz;
+	private String yh_dz;//用户地址
 	@FormParam("dzzt")
-	private String dzzt;
+	private String dzzt;//地址状态
 	@FormParam("yh_id")
-	private int yh_id;
+	private int yh_id;//用户id
 	@FormParam("shjr")
-	private String shjr;
+	private String shjr;//收件人
 	@FormParam("lxfsh")
-	private String lxfsh;
+	private String lxfsh;//联系方式
 
 	public int getId() {
 		return id;

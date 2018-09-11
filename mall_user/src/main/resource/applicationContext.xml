@@ -86,11 +86,19 @@
 
 	<jaxws:endpoint address="/login"
 		implementorClass="com.agree.server.LoginServer">
+		<!--添加安全协议 -->
 		<jaxws:inInterceptors>
 			<ref bean="in"/>
 		</jaxws:inInterceptors>
 		<jaxws:implementor>
 			<bean class="com.agree.server.impl.LoginServerImpl"></bean>
+		</jaxws:implementor>
+	</jaxws:endpoint>
+
+	<jaxws:endpoint address="/userService"
+					implementorClass="com.agree.server.UserServer">
+		<jaxws:implementor>
+			<bean class="com.agree.server.impl.UserServerImpl"></bean>
 		</jaxws:implementor>
 	</jaxws:endpoint>
 
