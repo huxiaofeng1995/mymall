@@ -32,6 +32,7 @@
     function doajax() {
         //构造参数
         var data = {"flbh2":${flbh2}};
+
         $("#attrParam input[name='shxparam']").each(function(i,item){
             //这里获取到的每个item对象都是input的Dom对象，不是jq对象
             var json = $.parseJSON(item.value);
@@ -40,9 +41,14 @@
         });
         console.log(data);
         //发送ajax请求
-        $.get("get_list_by_attr.do",data,function (data) {
-            $("#skuListInner").html(data);
-        })
+        if($("#attrParam input[name='shxparam']").size()>0){
+            $.get("get_list_by_attr.do",data,function (data) {
+                $("#skuListInner").html(data);
+            })
+        }else {
+            location.reload();
+        }
+
     }
     function doajax1(){
         var data = "flbh2="+${flbh2};
@@ -52,9 +58,13 @@
         });
         console.log(data);
         //发送ajax请求
-        $.get("get_list_by_attr.do",data,function (data) {
-            $("#skuListInner").html(data);
-        })
+        if($("#attrParam input[name='shxparam']").size()>0){
+            $.get("get_list_by_attr.do",data,function (data) {
+                $("#skuListInner").html(data);
+            })
+        }else {
+            location.reload();
+        }
     }
 </script>
 <title>硅谷商城</title>
