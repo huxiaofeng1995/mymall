@@ -1,6 +1,8 @@
 package com.agree.controller;
 
 import com.agree.bean.*;
+import com.agree.server.UserServer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +19,10 @@ import java.util.Set;
 @Controller
 public class OrderController {
 
-    @RequestMapping(value = "/goto_chechOrder")
+    @Autowired
+    private UserServer userServer;
+
+    @RequestMapping(value = "/goto_checkOrder")
     public String goto_checkOrder(HttpSession session, ModelMap map){
         List<T_MALL_SHOPPINGCAR> list_cart = new ArrayList<>();
         T_MALL_USER_ACCOUNT user = (T_MALL_USER_ACCOUNT) session.getAttribute("user");
@@ -70,6 +75,8 @@ public class OrderController {
             order.setList_flow(list_flow);
             map.put("order", order);//与sessionAttributes配合，将订单信息放入session中，实现跨请求访问
         }
+        List<T_MALL_ADDRESS> list_address = userServer.get_address_list(user);
+        map.put("list_address", list_address);
         return "checkOrder";
     }
 

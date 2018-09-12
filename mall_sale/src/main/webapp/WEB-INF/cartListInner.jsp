@@ -64,7 +64,7 @@
     </table>
 </div>
 <div class="Cprice">
-    <form id="goto_check" action="goto_chechOrder.do">
+    <form id="goto_check" action="goto_checkOrder.do">
         <div class="price">总价：${sum}</div>
         <div class="jiesuan" onclick="goto_check()">结算</div>
     </form>
