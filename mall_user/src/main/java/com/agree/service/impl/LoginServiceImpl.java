@@ -24,12 +24,6 @@ public class LoginServiceImpl implements LoginService {
 	public T_MALL_USER_ACCOUNT login2(T_MALL_USER_ACCOUNT user) {
 		// 数据源2
 		MyRoutingDataSource.setKey("2");
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return loginMapper.select_user(user);
 	}
 

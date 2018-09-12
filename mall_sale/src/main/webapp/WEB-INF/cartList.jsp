@@ -19,23 +19,9 @@
 <body>
 <jsp:include page="header.jsp"></jsp:include>
 <div class="top_img">
-    <img src="./images/top_img.jpg" alt="">
+    <img src="images/top_img.jpg" alt="">
 </div>
-<div class="search">
-    <div class="logo"><img src="./images/logo.jpg" alt=""></div>
-    <div class="search_on">
-        <div class="se">
-            <input type="text" name="search" class="lf">
-            <input type="submit" class="clik" value="搜索" style="height: 32px;">
-        </div>
-        <div class="se">
-            <a href="">取暖神奇</a>
-            <a href="">1元秒杀</a>
-            <a href="">吹风机</a>
-            <a href="">玉兰油</a>
-        </div>
-    </div>
-</div>
+<jsp:include page="searchArea.jsp"></jsp:include>
 <div id="cartListInner">
     <jsp:include page="cartListInner.jsp"/>
 </div>

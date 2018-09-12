@@ -25,6 +25,9 @@
             $("#cartListInner").html(data);
         })
     }
+    function goto_check() {
+        $("#goto_check").submit();
+    }
 </script>
 <title>硅谷商城</title>
 </head>
@@ -61,8 +64,10 @@
     </table>
 </div>
 <div class="Cprice">
-    <div class="price">总价：${sum}</div>
-    <div class="jiesuan">结算</div>
+    <form id="goto_check" action="goto_chechOrder.do">
+        <div class="price">总价：${sum}</div>
+        <div class="jiesuan" onclick="goto_check()">结算</div>
+    </form>
 </div>
 </body>
 </html>

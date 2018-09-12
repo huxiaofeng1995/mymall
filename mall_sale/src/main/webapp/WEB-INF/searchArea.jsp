@@ -11,6 +11,12 @@
 <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
+	$(function () {
+	    //每次加载页面都去发一次异步请求，目的是为了刷新显示页面上mini购物车上的商品数量
+        $.get("miniCart.do",function (data) {
+            $("#cart_list").html(data);
+        })
+    })
 	function b(){}
 </script>
 <title>硅谷商城</title>
