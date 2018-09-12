@@ -75,7 +75,13 @@ public class OrderController {
             order.setList_flow(list_flow);
             map.put("order", order);//与sessionAttributes配合，将订单信息放入session中，实现跨请求访问
         }
-        List<T_MALL_ADDRESS> list_address = userServer.get_address_list(user);
+        List<T_MALL_ADDRESS> list_address = new ArrayList<>();
+        try {
+            list_address = userServer.get_address_list(user);
+        }catch (Exception e){
+            map.put("error", new ErrorBean("500", "请求地址服务出错啦！请重新选择购物车结算！"));
+            return "error";
+        }
         map.put("list_address", list_address);
         return "checkOrder";
     }

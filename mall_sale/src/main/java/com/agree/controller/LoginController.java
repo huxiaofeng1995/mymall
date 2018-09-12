@@ -1,5 +1,6 @@
 package com.agree.controller;
 
+import com.agree.bean.ErrorBean;
 import com.agree.bean.T_MALL_SHOPPINGCAR;
 import com.agree.bean.T_MALL_USER_ACCOUNT;
 import com.agree.server.LoginServer;
@@ -37,10 +38,15 @@ public class LoginController {
                         T_MALL_USER_ACCOUNT user, HttpSession session, String dataSource_type, HttpServletRequest request, HttpServletResponse response, ModelMap map){
         //登录，远程用户认证接口
         String result = "";
-        if(dataSource_type.equals("1")) {
-            result = loginServer.login(user);
-        }else if(dataSource_type.equals("2")){
-            result = loginServer.login2(user);
+        try {
+            if (dataSource_type.equals("1")) {
+                result = loginServer.login(user);
+            } else if (dataSource_type.equals("2")) {
+                result = loginServer.login2(user);
+            }
+        }catch (Exception e){
+            map.put("error", new ErrorBean("500","调用登录服务出错啦！"));
+            return "error";
         }
 
         T_MALL_USER_ACCOUNT select_user = (T_MALL_USER_ACCOUNT) JSON.parseObject(result,T_MALL_USER_ACCOUNT.class);
