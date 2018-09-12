@@ -6,14 +6,14 @@ import java.util.Date;
 public class T_MALL_ORDER {
 
 	private Integer id;
-	private String shhr;
-	private BigDecimal zje;
-	private Integer jdh;
-	private Integer yh_id;
+	private String shhr;//收货人
+	private BigDecimal zje;//总金额
+	private Integer jdh;//进度号
+	private Integer yh_id;//用户id
 	private Date chjshj;
-	private Date yjsdshj;
-	private Integer dzh_id;
-	private String dzh_mch;
+	private Date yjsdshj;//预计送达时间
+	private Integer dzh_id;//地址id
+	private String dzh_mch;//地址名称
 
 	public Integer getId() {
 		return id;

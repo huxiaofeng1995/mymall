@@ -4,15 +4,15 @@ import java.util.Date;
 
 public class T_MALL_FLOW {
 	private int id;
-	private String psfsh;
-	private Date psshj;
-	private String psmsh;
-	private int yh_id;
-	private int dd_id;
-	private String mqdd;
-	private String mdd;
-	private String ywy;
-	private String lxfsh;
+	private String psfsh;//配送方式
+	private Date psshj;//配送时间
+	private String psmsh;//配送描述
+	private int yh_id;//用户id
+	private int dd_id;//订单id
+	private String mqdd;//目前地点
+	private String mdd;//目的地
+	private String ywy;//业务员
+	private String lxfsh;//联系方式
 
 	public int getId() {
 		return id;

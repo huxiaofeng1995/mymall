@@ -32,6 +32,11 @@ public class IndexController {
 		return "login";
 	}
 
+	@RequestMapping(value="/goto_login_check")
+	public String goto_login_check(){
+		return "login_check";
+	}
+
 	@RequestMapping(value="/goto_registry")
 	public String goto_registry(){
 		return "registry";

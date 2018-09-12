@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -32,8 +33,8 @@ public class LoginController {
     private LoginServer loginServer;
 
     @RequestMapping(value="/login")
-    public String login(@CookieValue(value = "list_cart_cookie",required = false) String list_cart_cookie, T_MALL_USER_ACCOUNT user, HttpSession session,
-                        String dataSource_type,HttpServletRequest request, HttpServletResponse response, ModelMap map){
+    public String login(@RequestParam(value = "redirect" ,required = false)String redirect, @CookieValue(value = "list_cart_cookie",required = false) String list_cart_cookie,
+                        T_MALL_USER_ACCOUNT user, HttpSession session, String dataSource_type, HttpServletRequest request, HttpServletResponse response, ModelMap map){
         //登录，远程用户认证接口
         String result = "";
         if(dataSource_type.equals("1")) {
@@ -59,9 +60,13 @@ public class LoginController {
             response.addCookie(cookie);
 
             //同步购物车
-            combine_cart(user, response, session, list_cart_cookie, map);
+            combine_cart(select_user, response, session, list_cart_cookie, map);
         }
-        return "redirect:/index.do";
+        if (StringUtils.isBlank(redirect)) {
+            return "redirect:/index.do";
+        } else {
+            return "redirect:/" + redirect;
+        }
     }
 
     private void combine_cart(T_MALL_USER_ACCOUNT user, HttpServletResponse response, HttpSession session, String list_cart_cookie,ModelMap map) {

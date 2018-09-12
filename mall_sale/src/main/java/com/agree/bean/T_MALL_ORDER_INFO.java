@@ -5,16 +5,16 @@ import java.util.Date;
 public class T_MALL_ORDER_INFO {
 
 	private int id;
-	private int dd_id;
-	private int sku_id;
+	private int dd_id;//订单id
+	private int sku_id;//sku id
 	private Date chjshj;
-	private String sku_mch;
-	private String shp_tp;
-	private double sku_jg;
-	private int sku_shl;
-	private String sku_kcdz;
-	private int gwch_id;
-	private int flow_id;
+	private String sku_mch;//sku 名称
+	private String shp_tp;//商品图片
+	private double sku_jg;//sku 价格
+	private int sku_shl;//sku 数量
+	private String sku_kcdz;//sku库存地址
+	private int gwch_id;//购物车id
+	private int flow_id;//物流id
 
 	public int getFlow_id() {
 		return flow_id;
