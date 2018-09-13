@@ -57,6 +57,14 @@
 		DELETE FROM t_mall_shoppingcar WHERE id=#{id}
 	</delete>
 
+	<delete id="delete_carts" parameterType="Map">
+		DELETE FROM t_mall_shoppingcar WHERE id in
+		<foreach collection="list_id" item="id" separator="," open="("
+				 close=")">
+			#{id}
+		</foreach>
+	</delete>
+
 	<select id="select_list_cart_by_user" parameterType="com.agree.bean.T_MALL_USER_ACCOUNT"
 			resultType="com.agree.bean.T_MALL_SHOPPINGCAR">
 		select * from t_mall_shoppingcar where yh_id = #{id}

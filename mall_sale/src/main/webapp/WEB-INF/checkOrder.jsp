@@ -15,9 +15,11 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<script type="text/javascript">
         $(function () {
-            send(1);//让第一个地址选中
+            show_addr(1);//让第一个地址选中
         })
-        function send(i){
+		//使用下面这种传过来id然后去遍历的方式虽然也行，但有点繁琐；
+		//可以在radio组件onclick事件将地址，收件人，联系方式直接传过来，然后显示，这样做简单直接。
+        function show_addr(i){
             i = i - 1;
             var arr = new Array();
             <c:forEach items="${list_address}" var="addr">
@@ -33,6 +35,9 @@
             $(".msg_sub_adds .shjr").text(arr[i].shjr);
             $(".msg_sub_adds .phoen").text(arr[i].lxfsh);
         }
+        function orderSubmit() {
+			$("#addrForm").submit();
+        }
 	</script>
 	<title>硅谷商城</title>
 </head>
@@ -45,22 +50,24 @@
 	<div class="msg_title">
 		收货人信息
 	</div>
-	<c:forEach items="${list_address}" var="addr" varStatus="index">
-		<div class="msg_addr">
-			<c:if test="${index.index==0}">
-				<input type="radio" name="address" checked value="${addr.id}" onselect="send(${addr.id})"/>
-			</c:if>
-			<c:if test="${index.index!=0}">
-				<input type="radio" name="address" value="${addr.id}" onclick="send(${addr.id})"/>
-			</c:if>
-			<span class="msg_left">
-						${addr.shjr} 北京
-					</span>
-			<span class="msg_right">
-					${addr.yh_dz}
-			</span>
-		</div>
-	</c:forEach>
+	<form id="addrForm" action="save_order.do">
+		<c:forEach items="${list_address}" var="addr" varStatus="index">
+			<div class="msg_addr">
+				<c:if test="${index.index==0}">
+					<input type="radio" name="id" checked value="${addr.id}" onselect="show_addr(${addr.id})"/>
+				</c:if>
+				<c:if test="${index.index!=0}">
+					<input type="radio" name="id" value="${addr.id}" onclick="show_addr(${addr.id})"/>
+				</c:if>
+				<span class="msg_left">
+							${addr.shjr} 北京
+						</span>
+				<span class="msg_right">
+						${addr.yh_dz}
+				</span>
+			</div>
+		</c:forEach>
+	</form>
 	<span class="addrs">查看更多地址信息</span>
 	<div class="msg_line"></div>
 
@@ -113,7 +120,7 @@
 		<div class="msg_sub_adds">
 			寄送至 ： <span class="dz">北京市 昌平区 北七家镇 尚硅谷IT教育</span>    &nbsp;<span class="shjr">某某某</span>（收）  <span class="phoen">185****1222</span>
 		</div>
-		<button class="msg_btn">提交订单</button>
+		<button class="msg_btn" style="cursor: pointer" onclick="orderSubmit()">提交订单</button>
 
 
 	</div>

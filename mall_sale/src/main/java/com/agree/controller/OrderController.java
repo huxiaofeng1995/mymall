@@ -2,25 +2,31 @@ package com.agree.controller;
 
 import com.agree.bean.*;
 import com.agree.server.UserServer;
+import com.agree.service.CartService;
+import com.agree.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-@SessionAttributes(value = "order")
+@SessionAttributes(value = {"order","list_adrress"})
 @Controller
 public class OrderController {
 
     @Autowired
     private UserServer userServer;
+
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private CartService cartService;
 
     @RequestMapping(value = "/goto_checkOrder")
     public String goto_checkOrder(HttpSession session, ModelMap map){
@@ -40,7 +46,7 @@ public class OrderController {
             order.setJdh(1);
             order.setYh_id(user.getId());
             order.setZje(getMoney(list_cart));
-            List<T_MALL_FLOW> list_flow = new ArrayList<>();
+            List<OBJECT_T_MALL_FLOW> list_flow = new ArrayList<>();
             //获取选中商品的去重后的库存地址
             Set<String> set_kcdz = new HashSet<>();
             for(T_MALL_SHOPPINGCAR cart : list_cart){
@@ -79,6 +85,7 @@ public class OrderController {
         try {
             list_address = userServer.get_address_list(user);
         }catch (Exception e){
+            e.printStackTrace();
             map.put("error", new ErrorBean("500", "请求地址服务出错啦！请重新选择购物车结算！"));
             return "error";
         }
@@ -94,5 +101,30 @@ public class OrderController {
             }
         }
         return sum;
+    }
+
+    @RequestMapping(value = "/save_order")
+    public String save_order(HttpSession session, @ModelAttribute(value = "order")OBJECT_T_MALL_ORDER order,T_MALL_ADDRESS addr,Map map){
+        //根据id获取地址信息
+        try{
+            addr = userServer.get_address(addr.getId());
+        }catch (Exception e){
+            e.printStackTrace();
+            map.put("error", new ErrorBean("500", "请求地址服务出错啦！请重新选择购物车结算！"));
+            return "error";
+        }
+        //保存order订单对象
+        orderService.save_order(order, addr);
+        //同步session
+        T_MALL_USER_ACCOUNT user = (T_MALL_USER_ACCOUNT) session.getAttribute("user");
+        session.setAttribute("list_cart_session", cartService.get_cart_list_by_user(user));
+        // 重定向到支付服务，传入订单号和交易金额
+        return "redirect:/goto_pay.do";
+    }
+
+    @RequestMapping("/goto_pay")
+    public String goto_pay() {
+        // 伪支付服务
+        return "pay";
     }
 }

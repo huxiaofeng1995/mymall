@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.agree.mapper.OrderMapper">
+	<insert id="insert_order" parameterType="com.agree.bean.OBJECT_T_MALL_ORDER" useGeneratedKeys="true"
+			keyColumn="id" keyProperty="id">
+		insert into t_mall_order(
+		shhr,
+		zje,
+		jdh,
+		yh_id,
+		dzh_id,
+		dzh_mch
+		)
+		values(
+		#{shhr},
+		#{zje},
+		#{jdh},
+		#{yh_id},
+		#{dzh_id},
+		#{dzh_mch}
+		)
+	</insert>
+	<insert id="insert_flow" parameterType="com.agree.bean.OBJECT_T_MALL_FLOW" useGeneratedKeys="true"
+			keyColumn="id" keyProperty="id">
+		insert into t_mall_flow(
+		psfsh,
+		yh_id,
+		dd_id,
+		mqdd,
+		mdd
+		)
+		values(
+		#{psfsh},
+		#{yh_id},
+		#{dd_id},
+		#{mqdd},
+		#{mdd}
+		)
+	</insert>
+
+	<insert id="insert_infos" parameterType="Map">
+		insert into
+		t_mall_order_info(
+		dd_id,
+		sku_id,
+		sku_mch,
+		shp_tp,
+		sku_jg,
+		sku_shl,
+		sku_kcdz,
+		flow_id,
+		gwch_id
+		)
+		values
+
+		<foreach collection="list_info" item="info" separator=",">
+			(
+			#{dd_id},
+			#{info.sku_id},
+			#{info.sku_mch},
+			#{info.shp_tp},
+			#{info.sku_jg},
+			#{info.sku_shl},
+			#{info.sku_kcdz},
+			#{flow_id},
+			#{info.gwch_id}
+			)
+		</foreach>
+	</insert>
+</mapper>
