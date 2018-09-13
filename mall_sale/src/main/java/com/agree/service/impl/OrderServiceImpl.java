@@ -48,6 +48,8 @@ public class OrderServiceImpl implements OrderService{
             }
         }
         //删除购物车信息
+        //除了根据info订单里的购物车id来删除之外，还有另一种方式：就是直接删除该userID对应的购物车中shfxz为0的购物车，
+        // 因为提交订单时，是根据用户勾选的东西来提交的。
         Map<Object, Object> map = new HashMap<Object, Object>();
         map.put("list_id", list_id);
         cartMapper.delete_carts(map);
