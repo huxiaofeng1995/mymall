@@ -15,10 +15,6 @@
 <title>硅谷商城</title>
 </head>
 <body>
-<h2>收银台</h2>
-<hr>
-<form action="/pay_success.do">
-    <input type="submit" value="支付"/>
-</form>
+订单支付成功！
 </body>
 </html>

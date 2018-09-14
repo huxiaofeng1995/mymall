@@ -1,6 +1,7 @@
 package com.agree.controller;
 
 import com.agree.bean.*;
+import com.agree.exception.OverSaleException;
 import com.agree.server.UserServer;
 import com.agree.service.CartService;
 import com.agree.service.OrderService;
@@ -122,9 +123,29 @@ public class OrderController {
         return "redirect:/goto_pay.do";
     }
 
-    @RequestMapping("/goto_pay")
+    @RequestMapping(value = "/goto_pay")
     public String goto_pay() {
         // 伪支付服务
         return "pay";
+    }
+
+    @RequestMapping(value = "/pay_success")
+    public String pay_success(@ModelAttribute(value = "order")OBJECT_T_MALL_ORDER order,Map map){
+        //修改订单物流信息
+        // 操作sku和库存
+        try {
+            orderService.pay(order);
+        } catch (OverSaleException e) {
+            e.printStackTrace();
+            map.put("error", new ErrorBean("500", e.getMessage()));
+            return "error";
+
+        }
+        return "redirect:/order_success.do";
+    }
+
+    @RequestMapping(value = "/order_success")
+    public String order_success(){
+        return "orderSuccess";
     }
 }
