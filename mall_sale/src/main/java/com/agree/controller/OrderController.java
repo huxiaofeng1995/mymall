@@ -148,4 +148,11 @@ public class OrderController {
     public String order_success(){
         return "orderSuccess";
     }
+
+    @RequestMapping(value = "/add_address")
+    public String add_address(T_MALL_ADDRESS address){
+        int userId = address.getYh_id();
+        userServer.add_address(address, userId);
+        return "redirect:/goto_checkOrder.do";
+    }
 }

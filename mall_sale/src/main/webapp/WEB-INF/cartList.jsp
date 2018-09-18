@@ -10,7 +10,7 @@
 <base href="<%=basePath %>">
     <link rel="stylesheet" type="text/css" href="css/css.css">
     <link rel="stylesheet" href="css/style.css">
-<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
 </script>
@@ -18,10 +18,20 @@
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
-<div class="top_img">
-    <img src="images/top_img.jpg" alt="">
+<div class="search">
+<div class="logo"><img src="./images/logo.jpg" alt=""></div>
+<div class="search_on">
+    <div class="se">
+        <input type="text" name="search" class="lf">
+        <input type="submit" class="clik" value="搜索">
+    </div>
+    <div class="se">
+        <a href="">取暖神奇</a>
+        <a href="">1元秒杀</a>
+        <a href="">吹风机</a>
+        <a href="">玉兰油</a>
+    </div>
 </div>
-<jsp:include page="searchArea.jsp"></jsp:include>
 <div id="cartListInner">
     <jsp:include page="cartListInner.jsp"/>
 </div>
