@@ -15,15 +15,12 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public T_MALL_USER_ACCOUNT login(T_MALL_USER_ACCOUNT user) {
-		// 数据源1
-		MyRoutingDataSource.setKey("1");
+
 		return loginMapper.select_user(user);
 	}
 
 	@Override
 	public T_MALL_USER_ACCOUNT login2(T_MALL_USER_ACCOUNT user) {
-		// 数据源2
-		MyRoutingDataSource.setKey("2");
 		return loginMapper.select_user(user);
 	}
 
