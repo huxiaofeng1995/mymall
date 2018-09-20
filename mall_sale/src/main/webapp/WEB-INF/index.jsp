@@ -34,5 +34,6 @@
 			<img src="images/banner.jpg" width="980" height="380" alt="">
 		</div>
 	</div>
+	<jsp:include page="footer.jsp"/>
 </body>
 </html>

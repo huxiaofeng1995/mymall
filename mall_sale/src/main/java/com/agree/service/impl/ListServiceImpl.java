@@ -1,5 +1,6 @@
 package com.agree.service.impl;
 
+import com.agree.bean.MODEL_CLASSNAME;
 import com.agree.bean.OBJECT_T_MALL_SKU;
 import com.agree.bean.T_MALL_SKU_ATTR_VALUE;
 import com.agree.mapper.ListMapper;
@@ -55,5 +56,10 @@ public class ListServiceImpl implements ListService {
         }
         List<OBJECT_T_MALL_SKU> list = listMapper.select_list_sku_by_attr(map);
         return list;
+    }
+
+    @Override
+    public MODEL_CLASSNAME get_classname(int flbh2) {
+        return listMapper.select_classname(flbh2);
     }
 }

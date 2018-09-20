@@ -24,4 +24,9 @@
 		where a.flbh2=#{flbh2} and a.pp_id=c.id and a.id=b.shp_id
 		${subSql}
 	</select>
+
+	<select id="select_classname" resultType="com.agree.bean.MODEL_CLASSNAME">
+		select flmch1,flmch2 from t_mall_class_1 a, t_mall_class_2 b
+		where b.id=#{flbh2} and a.id=b.flbh1
+	</select>
 </mapper>

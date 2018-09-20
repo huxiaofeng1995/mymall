@@ -20,8 +20,8 @@
             $("#cartListInner").html(data);
         });
     }
-    function del_cart(sku_id) {
-        $.post("del_cart.do",{sku_id:sku_id},function (data) {
+    function del_cart(sku_id,mon,index) {
+        $.post("del_cart.do",{sku_id:sku_id},function () {
             $("#cartListInner").html(data);
         })
     }
@@ -46,7 +46,7 @@
         </thead>
         <tbody>
         <c:forEach items="${list_cart}" var="cart" varStatus="status">
-            <tr>
+            <tr id="cart_${status.index}">
                 <td><input type="checkbox" ${cart.shfxz=="1"?"checked":""} onclick="change_cart(this.checked,${cart.sku_id})"><img src="upload/image/${cart.shp_tp}" alt="" width="100px"></td>
                 <td>${cart.sku_mch}</td>
                 <td>
@@ -57,7 +57,7 @@
                 </td>
                 <td>${cart.hj}</td>
                 <td><input type="text" name="min" value="${cart.tjshl}" style="width:50px;text-align:center"></td>
-                <td><a href="javascript:del_cart(${cart.sku_id});">删除</a></td>
+                <td><a href="javascript:del_cart('${cart.sku_id}','${cart.hj}','${status.index}');">删除</a></td>
             </tr>
         </c:forEach>
         </tbody>
@@ -65,7 +65,7 @@
 </div>
 <div class="Cprice">
     <form id="goto_check" action="goto_checkOrder.do">
-        <div class="price">总价：${sum}</div>
+        <div class="price">总价：<span id="totalprice">${sum}</span></div>
         <div class="jiesuan" onclick="goto_check()">结算</div>
     </form>
 </div>

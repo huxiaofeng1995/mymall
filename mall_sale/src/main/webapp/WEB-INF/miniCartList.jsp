@@ -19,6 +19,11 @@
     function goto_cart_list() {
         location.href = "/goto_cart_list.do"
     }
+    function del_minicart(sku_id) {
+        $.post("del_minicart.do",{sku_id:sku_id},function (data) {
+            $("#cart_list").html(data);
+        })
+    }
 </script>
 <title>硅谷商城</title>
 </head>
@@ -34,7 +39,7 @@
     </span>
     <span class="one_prece" style="font-size: 12px">
         <b>￥${cart.sku_jg} X ${cart.tjshl}</b><br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;删除
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:del_minicart(${cart.sku_id});">删除</a>
     </span>
     </div>
 </c:forEach>

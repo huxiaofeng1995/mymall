@@ -47,7 +47,7 @@
 <div class="Dbox">
     <div class="box">
         <div class="left">
-            <div class="timg"><img src="upload/image/${detail_sku.spu.shp_tp}" alt=""></div>
+            <div class="timg"><img src="upload/image/${detail_sku.spu.shp_tp}" alt="" width="350px" height="350px"></div>
             <div class="timg2">
                 <div class="lf"><img src="images/lf.jpg" alt=""></div>
                 <div class="center">
@@ -95,6 +95,7 @@
             </div>
             <div class="clear" style="margin-top:20px;">
                 <img src="images/mai.jpg" alt="">
+                <img src="images/shop.jpg" alt="" onclick="cart_submit()" style="cursor: pointer;">
                 <form id="cartForm" action="add_cart.do" method="post">
                     <input type="hidden" name="sku_mch" value="${detail_sku.sku_mch}"/>
                     <input type="hidden" name="sku_jg" value="${detail_sku.jg}"/>
@@ -108,7 +109,6 @@
                     <c:if test="${not empty user}">
                         <input type="hidden" name="yh_id" value="${user.id}"/>
                     </c:if>
-                    <img src="images/shop.jpg" alt="" onclick="cart_submit()" style="cursor: pointer;">
                 </form>
             </div>
         </div>
