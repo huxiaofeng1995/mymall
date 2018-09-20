@@ -52,6 +52,7 @@ public class JedisUtils {
 			}
 			return list;
 		} catch (Exception e) {
+			//记日志
 			e.printStackTrace();
 		}
 		return null;
@@ -61,6 +62,7 @@ public class JedisUtils {
 		Jedis jedis = null;
 		try {
 			jedis = JedisUtils.getJedis();
+			jedis.del(key);
 			for(int i=0; i<list.size();i++){
 				String jsonstr = URLEncoder.encode(JSONObject.toJSONString(list.get(i)),"utf-8");
 				jedis.zadd(key,i,jsonstr);
@@ -68,5 +70,42 @@ public class JedisUtils {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
+	}
+
+	public static List<OBJECT_T_MALL_SKU> getListByAttr(String[] key) {
+		Jedis jedis = null;
+		List<OBJECT_T_MALL_SKU> list = new ArrayList<OBJECT_T_MALL_SKU>();
+		try {
+			jedis = JedisUtils.getJedis();
+			//生成动态的key，避免操作相同key导致并发问题
+			String k0 = "combine";
+			for(int i = 0;i < key.length; i++){
+				k0 = k0 + "_" + key[i];
+			}
+			if(!JedisUtils.existsKey(k0)) {
+				jedis.zinterstore(k0, key);
+			}
+			Set<String> set = jedis.zrange(k0,0,-1);
+			for (String str : set) {
+				str = URLDecoder.decode(str, "utf-8");
+				list.add(JSONObject.parseObject(str,OBJECT_T_MALL_SKU.class));
+			}
+			return list;
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public static Boolean existsKey(String key){
+		Jedis jedis = null;
+		try {
+			jedis = JedisUtils.getJedis();
+			return jedis.exists(key);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
