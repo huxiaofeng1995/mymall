@@ -51,7 +51,9 @@ public class CartController {
         } else {
             list_cart = (List<T_MALL_SHOPPINGCAR>) session.getAttribute("list_cart_session");
         }
-        for (T_MALL_SHOPPINGCAR cart : list_cart) {
+        for(int i = 0;i < list_cart.size();i++){
+        //for (T_MALL_SHOPPINGCAR cart : list_cart) {
+            T_MALL_SHOPPINGCAR cart = list_cart.get(i);
             if (cart.getSku_id() == shoppingcar.getSku_id()) {
                 if (user == null) {
                     list_cart.remove(cart);
@@ -73,7 +75,9 @@ public class CartController {
         }
         List<OBJECT_PRODUCT_SKU_INFO> obj_attr = new ArrayList<>();
         map.put("list_cart", list_cart);
-        for (T_MALL_SHOPPINGCAR cart : list_cart) {
+        for(int i = 0;i < list_cart.size();i++){
+            //for (T_MALL_SHOPPINGCAR cart : list_cart) {
+            T_MALL_SHOPPINGCAR cart = list_cart.get(i);
             obj_attr.add(itemService.get_sale_attr_by_skuId(cart.getSku_id()));
         }
         map.put("sum", getMoney(list_cart));
@@ -100,7 +104,9 @@ public class CartController {
         }else {
             list_cart = (List<T_MALL_SHOPPINGCAR>) session.getAttribute("list_cart_session");
         }
-        for(T_MALL_SHOPPINGCAR cart : list_cart){
+        for(int i = 0;i < list_cart.size();i++){
+            //for (T_MALL_SHOPPINGCAR cart : list_cart) {
+            T_MALL_SHOPPINGCAR cart = list_cart.get(i);
             if(cart.getSku_id() == shoppingcar.getSku_id()){
                 cart.setShfxz(shoppingcar.getShfxz());
             }
@@ -121,7 +127,9 @@ public class CartController {
         }
         List<OBJECT_PRODUCT_SKU_INFO> obj_attr = new ArrayList<>();
         map.put("list_cart", list_cart);
-        for(T_MALL_SHOPPINGCAR cart : list_cart){
+        for(int i = 0;i < list_cart.size();i++){
+            //for (T_MALL_SHOPPINGCAR cart : list_cart) {
+            T_MALL_SHOPPINGCAR cart = list_cart.get(i);
             obj_attr.add(itemService.get_sale_attr_by_skuId(cart.getSku_id()));
         }
         map.put("sum", getMoney(list_cart));
@@ -149,7 +157,9 @@ public class CartController {
         }
         List<OBJECT_PRODUCT_SKU_INFO> obj_attr = new ArrayList<>();
         map.put("list_cart", list_cart);
-        for(T_MALL_SHOPPINGCAR cart : list_cart){
+        for(int i = 0;i < list_cart.size();i++){
+            //for (T_MALL_SHOPPINGCAR cart : list_cart) {
+            T_MALL_SHOPPINGCAR cart = list_cart.get(i);
             obj_attr.add(itemService.get_sale_attr_by_skuId(cart.getSku_id()));
         }
         map.put("sum", getMoney(list_cart));
@@ -188,7 +198,9 @@ public class CartController {
         int shp_count = 0 ;
         BigDecimal sum = new BigDecimal("0");
         map.put("list_cart", list_cart);
-        for(T_MALL_SHOPPINGCAR cart : list_cart){
+        for(int i = 0;i < list_cart.size();i++){
+            //for (T_MALL_SHOPPINGCAR cart : list_cart) {
+            T_MALL_SHOPPINGCAR cart = list_cart.get(i);
             shp_count += cart.getTjshl();
             sum = sum.add(new BigDecimal(cart.getHj() + ""));//添加前要先转换
         }
@@ -212,7 +224,9 @@ public class CartController {
         } else {
             list_cart = (List<T_MALL_SHOPPINGCAR>) session.getAttribute("list_cart_session");
         }
-        for (T_MALL_SHOPPINGCAR cart : list_cart) {
+        for(int i = 0;i < list_cart.size();i++){
+            //for (T_MALL_SHOPPINGCAR cart : list_cart) {
+            T_MALL_SHOPPINGCAR cart = list_cart.get(i);
             if (cart.getSku_id() == shoppingcar.getSku_id()) {
                 if (user == null) {
                     list_cart.remove(cart);
@@ -235,7 +249,9 @@ public class CartController {
         int shp_count = 0 ;
         BigDecimal sum = new BigDecimal("0");
         map.put("list_cart", list_cart);
-        for(T_MALL_SHOPPINGCAR cart : list_cart){
+        for(int i = 0;i < list_cart.size();i++){
+            //for (T_MALL_SHOPPINGCAR cart : list_cart) {
+            T_MALL_SHOPPINGCAR cart = list_cart.get(i);
             shp_count += cart.getTjshl();
             sum = sum.add(new BigDecimal(cart.getHj() + ""));//添加前要先转换
         }

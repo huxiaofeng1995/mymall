@@ -13,6 +13,23 @@
 <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
+    function change_cart(checked, sku_id) {
+        var shfxz = "0";
+        if(checked){
+            shfxz = "1";
+        }
+        $.post("change_cart.do",{sku_id:sku_id,shfxz:shfxz},function(data){
+            $("#cartListInner").html(data);
+        });
+    }
+    function del_cart(sku_id,mon,index) {
+        $.post("del_cart.do",{sku_id:sku_id},function (data) {
+            $("#cartListInner").html(data);
+        })
+    }
+    function goto_check() {
+        $("#goto_check").submit();
+    }
 </script>
 <title>硅谷商城</title>
 </head>
@@ -31,6 +48,7 @@
         <a href="">吹风机</a>
         <a href="">玉兰油</a>
     </div>
+</div>
 </div>
 <div id="cartListInner">
     <jsp:include page="cartListInner.jsp"/>

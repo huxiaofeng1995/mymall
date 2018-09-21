@@ -29,7 +29,7 @@
                 </div>
 
                 <p class="error_new_right_btn pr">
-                    <a href="/goto_index.do" class="type-2 type-3">
+                    <a href="/index.do" class="type-2 type-3">
                         <i> 返回首页</i>
                         <i> 返回首页 </i>
                         <i> 返回首页 </i>
