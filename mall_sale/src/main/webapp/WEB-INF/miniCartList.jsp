@@ -38,8 +38,8 @@
         ${cart.sku_mch}
     </span>
     <span class="one_prece" style="font-size: 12px">
-        <b>￥${cart.sku_jg} X ${cart.tjshl}</b><br />
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:del_minicart(${cart.sku_id});">删除</a>
+        <div>￥${cart.sku_jg} X ${cart.tjshl}</div>
+        <a href="javascript:del_minicart(${cart.sku_id});" style="padding: 0px;margin-left: 35px;">删除</a>
     </span>
     </div>
 </c:forEach>

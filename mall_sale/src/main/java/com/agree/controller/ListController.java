@@ -5,6 +5,9 @@ import com.agree.service.AttrService;
 import com.agree.service.ListService;
 import com.agree.util.JedisUtils;
 import com.agree.util.MyCacheUtil;
+import com.agree.util.MyHttpGetUtil;
+import com.agree.util.MyPropertyUtil;
+import com.alibaba.fastjson.JSON;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,23 @@ public class ListController {
 
     @Autowired
     private AttrService attrService;
+
+    @RequestMapping(value = "/keywords")
+    public String get_list_by_keywords(String keywords,Map map){
+
+        //调用mall_solr服务
+        String result = "";
+        try {
+            result = MyHttpGetUtil.doGet(MyPropertyUtil.getProperty("ws.properties","keywords_url")+"?keywords="+keywords);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        List<KEYWORDS_T_MALL_SKU> list_sku = JSON.parseArray(result, KEYWORDS_T_MALL_SKU.class);
+        map.put("list_sku",list_sku);
+        map.put("count",list_sku.size());
+        map.put("search","true");
+        return "list";
+    }
 
     @RequestMapping(value = "/get_list_by_attr")
     public String get_list_by_attr(MODEL_T_MALL_SKU_ATTR_VALUE model,int flbh2,Map map){

@@ -22,10 +22,18 @@
         <img src="images/top_img.jpg" alt="">
     </div>
     <jsp:include page="searchArea.jsp"></jsp:include>
+    <c:if test="${empty search}">
     <jsp:include page="attrList.jsp"/>
-    <div id="skuListInner" class="Sbox">
-        <jsp:include page="skuList.jsp"/>
-    </div>
+
+        <div id="skuListInner" class="Sbox">
+            <jsp:include page="skuList.jsp"/>
+        </div>
+    </c:if>
+    <c:if test="${not empty search}">
+        <div id="skuListInner" class="Sbox">
+            <jsp:include page="search.jsp"/>
+        </div>
+    </c:if>
     <div class="footer">
         <div class="top"></div>
         <div class="bottom"><img src="images/foot.jpg" alt=""></div>
