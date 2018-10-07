@@ -16,12 +16,50 @@
                 http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd
        ">
-	<context:property-placeholder location="classpath:dbConfig.properties,classpath:ws.properties"/>
+	<context:property-placeholder location="classpath:dbConfig.properties"/>
 	<!--  use-default-filters="false" 需要和 context:include-filter 一起使用，而不能和 context:exclude-filter 属性一起使用。 -->
 	<context:component-scan base-package="com.agree.service" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
 	</context:component-scan>
-	
+
+	<!-- jsm消息工厂 -->
+	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="tcp://localhost:61616" />
+	</bean>
+	<bean id="connectionFactory"
+		  class="org.springframework.jms.connection.SingleConnectionFactory">
+		<!--产生JMS Connection的ConnectionFactory -->
+		<property name="targetConnectionFactory" ref="targetConnectionFactory" />
+	</bean>
+
+	<!-- 执行消息任务的模板 -->
+	<!--<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+	</bean>-->
+	<bean id="queueDestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="login_queue" />
+	</bean>
+	<bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg value="login_topic" />
+	</bean>
+
+	<bean id="myMessageQueueListener" class="com.agree.listener.MyMessageQueueListener"/>
+	<!-- 消息监听容器 -->
+	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="queueDestination" />
+		<property name="messageListener" ref="myMessageQueueListener" />
+	</bean>
+	<bean id="myMessageTopicListener" class="com.agree.listener.MyMessageTopicListener"/>
+	<!--订阅模式监听容器-->
+	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="topicDestination" />
+		<property name="messageListener" ref="myMessageTopicListener" />
+	</bean>
+
+
+
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${jdbc.driverClassName}"/>
 		<property name="url" value="${jdbc.url}"/>
@@ -44,52 +82,4 @@
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean"></property>
 	</bean>
 
-	<bean class="com.agree.util.MyWsFactoryBean">
-		<property name="url" value="${login_url}"/>
-		<property name="t" value="com.agree.server.LoginServer"></property>
-	</bean>
-
-	<bean class="com.agree.util.MyWsFactoryBean">
-		<property name="url" value="${userService_url}"/>
-		<property name="t" value="com.agree.server.UserServer"></property>
-	</bean>
-
-	<!-- ===============事务控制的配置 ================-->
-	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<!--控制住数据源  -->
-		<property name="dataSource" ref="dataSource"></property>
-	</bean>
-    <!-- 配置事务属性 -->
-    <tx:advice id="txAdvice" transaction-manager="txManager">
-        <tx:attributes>
-            <tx:method name="*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
-        </tx:attributes>
-    </tx:advice>
-
-    <aop:config>
-        <aop:pointcut id="txPointCut" expression="execution(* com.agree.service.*.*(..))"/>
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
-    </aop:config>
-    <tx:annotation-driven/>
-
-	<!-- jsm消息工厂 -->
-	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
-		<property name="brokerURL" value="tcp://localhost:61616" />
-	</bean>
-	<bean id="connectionFactory"
-		  class="org.springframework.jms.connection.SingleConnectionFactory">
-		<!--产生JMS Connection的ConnectionFactory -->
-		<property name="targetConnectionFactory" ref="targetConnectionFactory" />
-	</bean>
-
-	<!-- 执行消息任务的模板 -->
-	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
-		<property name="connectionFactory" ref="connectionFactory" />
-	</bean>
-	<bean id="queueDestination" class="org.apache.activemq.command.ActiveMQQueue">
-		<constructor-arg value="login_queue" />
-	</bean>
-	<bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
-		<constructor-arg value="login_topic" />
-	</bean>
 </beans>

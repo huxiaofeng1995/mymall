@@ -8,6 +8,23 @@
   <name>mall_sale Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
+	  <!-- 整合mq -->
+	  <dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-jms</artifactId>
+		  <version>4.0.0.RELEASE</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>org.apache.activemq</groupId>
+		  <artifactId>activemq-all</artifactId>
+		  <version>5.11.2</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>org.springframework</groupId>
+		  <artifactId>spring-context-support</artifactId>
+		  <version>4.0.0.RELEASE</version>
+	  </dependency>
+
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>

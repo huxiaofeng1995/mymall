@@ -6,14 +6,20 @@ import com.agree.bean.T_MALL_USER_ACCOUNT;
 import com.agree.server.LoginServer;
 import com.agree.service.CartService;
 import com.alibaba.fastjson.JSON;
+import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,6 +38,12 @@ public class LoginController {
 
     @Autowired
     private LoginServer loginServer;
+
+    @Autowired
+    private JmsTemplate jmsTemplate;
+
+    @Autowired
+    private ActiveMQQueue queueDestination;
 
     @RequestMapping(value="/login")
     public String login(@RequestParam(value = "redirect" ,required = false)String redirect, @CookieValue(value = "list_cart_cookie",required = false) String list_cart_cookie,
@@ -54,6 +66,20 @@ public class LoginController {
         if(select_user.getId() == 0){
             return "redirect:/goto_login.do";
         }else {
+            //登录成功，异步调用消息队列，发布日志消息
+            // 发送mq消息
+            try {
+                final String message = select_user.getId() + "|" + select_user.getYh_mch() + "登录";
+                jmsTemplate.send(queueDestination, new MessageCreator() {
+                    @Override
+                    public Message createMessage(Session session) throws JMSException {
+                        return session.createTextMessage(message);
+                    }
+                });
+            }catch (Exception e){
+                map.put("error", new ErrorBean("500","调用日志消息服务出错啦！"));
+                return "error";
+            }
             session.setAttribute("user", select_user);
             Cookie cookie = null;
             try {
