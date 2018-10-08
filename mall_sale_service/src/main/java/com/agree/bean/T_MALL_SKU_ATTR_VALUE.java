@@ -1,8 +1,9 @@
 package com.agree.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class T_MALL_SKU_ATTR_VALUE {
+public class T_MALL_SKU_ATTR_VALUE implements Serializable {
 	private int id;
 	private int shxm_id;
 	private int shxzh_id;

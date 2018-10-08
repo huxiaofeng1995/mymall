@@ -1,8 +1,9 @@
 package com.agree.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class T_MALL_PRODUCT_SKU_INFO {
+public class T_MALL_PRODUCT_SKU_INFO implements Serializable {
 	private int sku_id;//编号
 	private String shp_msh;
 	private String shp_lb;//商品类别

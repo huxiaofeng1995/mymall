@@ -1,8 +1,9 @@
 package com.agree.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MODEL_T_MALL_SKU_ATTR_VALUE {
+public class MODEL_T_MALL_SKU_ATTR_VALUE implements Serializable {
 
 	List<T_MALL_SKU_ATTR_VALUE> list_attr;
 

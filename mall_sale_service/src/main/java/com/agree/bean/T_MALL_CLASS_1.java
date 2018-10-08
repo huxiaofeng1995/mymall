@@ -1,6 +1,8 @@
 package com.agree.bean;
 
-public class T_MALL_CLASS_1 {
+import java.io.Serializable;
+
+public class T_MALL_CLASS_1 implements Serializable {
 
 	private int id;
 	private String flmch1;

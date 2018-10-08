@@ -1,8 +1,9 @@
 package com.agree.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class T_MALL_FLOW {
+public class T_MALL_FLOW implements Serializable {
 	private int id;
 	private String psfsh;//配送方式
 	private Date psshj;//配送时间

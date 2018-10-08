@@ -1,6 +1,8 @@
 package com.agree.bean;
 
-public class T_MALL_SKU_AV_NAME {
+import java.io.Serializable;
+
+public class T_MALL_SKU_AV_NAME implements Serializable {
 
 	private String shxm_mch;
 	private String shxzh_mch;

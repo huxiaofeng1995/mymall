@@ -1,6 +1,8 @@
 package com.agree.bean;
 
-public class T_MALL_USER_ACCOUNT {
+import java.io.Serializable;
+
+public class T_MALL_USER_ACCOUNT implements Serializable {
 
 	private int id;
 	private String yh_mch;

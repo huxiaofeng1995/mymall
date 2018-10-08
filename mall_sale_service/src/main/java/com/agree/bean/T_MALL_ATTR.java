@@ -1,9 +1,9 @@
 package com.agree.bean;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
-public class T_MALL_ATTR {
+public class T_MALL_ATTR  implements Serializable {
 
 	private int id;
 	private String shxm_mch;

@@ -1,9 +1,10 @@
 package com.agree.bean;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class T_MALL_ORDER {
+public class T_MALL_ORDER implements Serializable {
 
 	private Integer id;
 	private String shhr;//收货人

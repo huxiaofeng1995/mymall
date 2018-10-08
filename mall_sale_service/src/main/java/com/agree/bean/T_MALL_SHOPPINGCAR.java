@@ -1,8 +1,9 @@
 package com.agree.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class T_MALL_SHOPPINGCAR {
+public class T_MALL_SHOPPINGCAR implements Serializable {
 	private int id;
 	private String sku_mch;
 	private double sku_jg;

@@ -1,8 +1,9 @@
 package com.agree.bean;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class T_MALL_PRODUCT_COLOR {
+public class T_MALL_PRODUCT_COLOR implements Serializable {
 	private int id;//编号
 	private String shp_ys;//颜色
 	private int shp_id;//商品id

@@ -1,6 +1,8 @@
 package com.agree.bean;
 
-public class MODEL_CLASSNAME {
+import java.io.Serializable;
+
+public class MODEL_CLASSNAME implements Serializable {
     String flmch1;
 
     String flmch2;

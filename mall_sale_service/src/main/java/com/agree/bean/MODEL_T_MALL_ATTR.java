@@ -1,8 +1,9 @@
 package com.agree.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MODEL_T_MALL_ATTR {
+public class MODEL_T_MALL_ATTR implements Serializable {
 
 	private List<OBJECT_T_MALL_ATTR> list_attr;
 
