@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://code.alibabatech.com/schema/dubbo
+		http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<context:property-placeholder location="classpath:ws.properties"/>
+
+	<context:component-scan base-package="com.agree.controller" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	<!-- 视图解析器 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	<!-- 3、SpringMVC上传文件时，需要配置MultipartResolver处理器 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8" />
+		<!-- 指定所上传文件的总大小,单位字节。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
+		<property name="maxUploadSize" value="10240000" />
+	</bean>
+
+	<!-- 4、启动注解 -->
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler />
+
+	<!-- 配置扫描器，将mybatis接口的实现加入到ioc容器中 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!--扫描所有dao接口的实现，加入到ioc容器中 -->
+		<property name="basePackage" value="com.agree.mapper"></property>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean"></property>
+	</bean>
+
+	<!-- webService相关服务-->
+	<bean class="com.agree.util.MyWsFactoryBean">
+		<property name="url" value="${login_url}"/>
+		<property name="t" value="com.agree.server.LoginServer"></property>
+	</bean>
+
+	<bean class="com.agree.util.MyWsFactoryBean">
+		<property name="url" value="${userService_url}"/>
+		<property name="t" value="com.agree.server.UserServer"></property>
+	</bean>
+
+	<!-- jsm消息工厂 -->
+	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="tcp://localhost:61616" />
+	</bean>
+	<bean id="connectionFactory"
+		  class="org.springframework.jms.connection.SingleConnectionFactory">
+		<!--产生JMS Connection的ConnectionFactory -->
+		<property name="targetConnectionFactory" ref="targetConnectionFactory" />
+	</bean>
+
+	<!-- 执行消息任务的模板 -->
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="connectionFactory" />
+	</bean>
+	<bean id="queueDestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="login_queue" />
+	</bean>
+	<bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg value="login_topic" />
+	</bean>
+
+	<!--调用dubbo-->
+	<!--1.应用名 -->
+	<dubbo:application name="sale_client" />
+	<!--2.注册中心地址 -->
+	<dubbo:registry protocol="zookeeper" address="192.168.11.101:2181" />
+	<!--3.需要引用的接口服务 -->
+	<dubbo:reference interface="com.agree.service.CartService" id="cartService">
+	</dubbo:reference>
+	<dubbo:reference interface="com.agree.service.OrderService" id="orderService">
+	</dubbo:reference>
+	<dubbo:reference interface="com.agree.service.ItemService" id="itemService">
+	</dubbo:reference>
+	<dubbo:reference interface="com.agree.service.ListService" id="listService">
+	</dubbo:reference>
+	<dubbo:reference interface="com.agree.service.AttrService" id="attrService">
+	</dubbo:reference>
+
+</beans>
